@@ -1,17 +1,8 @@
-<%-- 
-    Document   : taglib
-    Created on : Oct 10, 2018, 8:21:23 AM
-    Author     : vothanhtai
---%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%-- Using resource bundle to management text in .jsp file--%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="ApplicationRescources" var="lang"/>
+<%-- End resource bundle --%>
+
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
