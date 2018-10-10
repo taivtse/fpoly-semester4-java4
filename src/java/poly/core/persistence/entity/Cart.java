@@ -1,5 +1,5 @@
 package poly.core.persistence.entity;
-// Generated Oct 10, 2018 4:53:13 PM by Hibernate Tools 4.3.1
+// Generated Oct 10, 2018 8:57:07 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,7 +15,7 @@ public class Cart  implements java.io.Serializable {
      private int id;
      private User user;
      private Date createdDate;
-     private Integer status;
+     private int status;
      private Set<CartDetail> cartDetails = new HashSet<CartDetail>(0);
      private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
@@ -28,7 +28,7 @@ public class Cart  implements java.io.Serializable {
         this.user = user;
         this.createdDate = createdDate;
     }
-    public Cart(int id, User user, Date createdDate, Integer status, Set<CartDetail> cartDetails, Set<Invoice> invoices) {
+    public Cart(int id, User user, Date createdDate, int status, Set<CartDetail> cartDetails, Set<Invoice> invoices) {
        this.id = id;
        this.user = user;
        this.createdDate = createdDate;
@@ -58,11 +58,11 @@ public class Cart  implements java.io.Serializable {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    public Integer getStatus() {
+    public int getStatus() {
         return this.status;
     }
     
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     public Set<CartDetail> getCartDetails() {

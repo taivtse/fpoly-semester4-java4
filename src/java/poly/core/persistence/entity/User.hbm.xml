@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 10, 2018 4:53:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 10, 2018 8:57:08 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="poly.core.persistence.entity.User" table="user" catalog="java4" optimistic-lock="version">
         <id name="id" type="int">

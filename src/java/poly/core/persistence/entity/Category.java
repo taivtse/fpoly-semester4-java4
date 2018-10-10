@@ -1,5 +1,5 @@
 package poly.core.persistence.entity;
-// Generated Oct 10, 2018 4:53:13 PM by Hibernate Tools 4.3.1
+// Generated Oct 10, 2018 8:57:07 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,9 +12,10 @@ public class Category  implements java.io.Serializable {
 
 
      private int id;
+//     private Category category;
      private String name;
      private int sortOrder;
-     private int parentId;
+     private Set<Category> childCategories = new HashSet<Category>(0);
      private Set<Product> products = new HashSet<Product>(0);
 
     public Category() {
@@ -26,11 +27,12 @@ public class Category  implements java.io.Serializable {
         this.name = name;
         this.sortOrder = sortOrder;
     }
-    public Category(int id, String name, int sortOrder, int parentId, Set<Product> products) {
+    public Category(int id, Category category, String name, int sortOrder, Set<Category> childCategories, Set<Product> products) {
        this.id = id;
+//       this.category = category;
        this.name = name;
        this.sortOrder = sortOrder;
-       this.parentId = parentId;
+       this.childCategories = childCategories;
        this.products = products;
     }
    
@@ -41,6 +43,13 @@ public class Category  implements java.io.Serializable {
     public void setId(int id) {
         this.id = id;
     }
+//    public Category getCategory() {
+//        return this.category;
+//    }
+//    
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
     public String getName() {
         return this.name;
     }
@@ -55,12 +64,12 @@ public class Category  implements java.io.Serializable {
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
     }
-    public int getParentId() {
-        return this.parentId;
+    public Set<Category> getChildCategories() {
+        return this.childCategories;
     }
     
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setChildCategories(Set<Category> childCategories) {
+        this.childCategories = childCategories;
     }
     public Set<Product> getProducts() {
         return this.products;
