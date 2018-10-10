@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2018 4:53:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="poly.core.persistence.entity.User" table="user" catalog="java4" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="role" class="poly.core.persistence.entity.Role" fetch="select">
+            <column name="role_id" not-null="true" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="username" length="30" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="128" not-null="true" />
+        </property>
+        <property name="fullname" type="string">
+            <column name="fullname" length="100" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" not-null="true" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="15" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" not-null="true" />
+        </property>
+        <set name="carts" table="cart" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="poly.core.persistence.entity.Cart" />
+        </set>
+    </class>
+</hibernate-mapping>
