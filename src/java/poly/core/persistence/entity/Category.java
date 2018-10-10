@@ -14,7 +14,7 @@ public class Category  implements java.io.Serializable {
      private int id;
      private String name;
      private int sortOrder;
-     private Integer parentId;
+     private int parentId;
      private Set<Product> products = new HashSet<Product>(0);
 
     public Category() {
@@ -26,7 +26,7 @@ public class Category  implements java.io.Serializable {
         this.name = name;
         this.sortOrder = sortOrder;
     }
-    public Category(int id, String name, int sortOrder, Integer parentId, Set<Product> products) {
+    public Category(int id, String name, int sortOrder, int parentId, Set<Product> products) {
        this.id = id;
        this.name = name;
        this.sortOrder = sortOrder;
@@ -55,11 +55,11 @@ public class Category  implements java.io.Serializable {
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
     }
-    public Integer getParentId() {
+    public int getParentId() {
         return this.parentId;
     }
     
-    public void setParentId(Integer parentId) {
+    public void setParentId(int parentId) {
         this.parentId = parentId;
     }
     public Set<Product> getProducts() {

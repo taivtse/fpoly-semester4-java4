@@ -43,10 +43,4 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
-    public static void main(String[] args) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Role r = (Role) session.get(Role.class, 2);
-        System.out.println(r.getName());
-    }
 }

@@ -13,7 +13,7 @@ public class Invoice  implements java.io.Serializable {
      private int id;
      private Cart cart;
      private Date createdDate;
-     private Integer status;
+     private int status;
 
     public Invoice() {
     }
@@ -24,7 +24,7 @@ public class Invoice  implements java.io.Serializable {
         this.cart = cart;
         this.createdDate = createdDate;
     }
-    public Invoice(int id, Cart cart, Date createdDate, Integer status) {
+    public Invoice(int id, Cart cart, Date createdDate, int status) {
        this.id = id;
        this.cart = cart;
        this.createdDate = createdDate;
@@ -52,11 +52,11 @@ public class Invoice  implements java.io.Serializable {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    public Integer getStatus() {
+    public int getStatus() {
         return this.status;
     }
     
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
