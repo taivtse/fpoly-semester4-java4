@@ -17,7 +17,7 @@
         <many-to-one name="parentCategory" class="poly.core.persistence.entity.Category" fetch="select">
             <column name="parent_id" />
         </many-to-one>
-        <set name="childCategories" table="category" inverse="true" lazy="true" fetch="select">
+        <set name="childCategories" table="category" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="parent_id" />
             </key>

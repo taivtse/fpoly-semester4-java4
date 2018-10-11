@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="loginFormUrl" value="/LoginAdmin"/>
+<c:url var="loginFormUrl" value="/login/admin"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>

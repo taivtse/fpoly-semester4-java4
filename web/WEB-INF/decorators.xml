@@ -3,7 +3,7 @@
 <decorators defaultdir="/decorators">
     <!-- Any urls that are excluded will never be decorated by Sitemesh -->
     <excludes>
-        <pattern>/404-page.html</pattern>
+        <pattern>/error-404.html</pattern>
         <pattern>*login.jsp</pattern>
         <pattern>/ajax*</pattern>
     </excludes>

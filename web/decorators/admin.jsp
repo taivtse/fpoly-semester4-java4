@@ -7,11 +7,11 @@
         <meta charset="utf-8" />
         <title><decorator:title default="Admin page"></decorator:title></title>
 
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+            <meta name="description" content="" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/template/admin/favicon.ico'/>">
+            <!-- Favicon -->
+            <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/template/admin/favicon.ico'/>">
 
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css'/>" />
@@ -25,8 +25,9 @@
 
         <!-- ace settings handler -->
         <script src="<c:url value='/template/admin/assets/js/ace-extra.min.js'/>"></script>
-    </head>
-    <body class="no-skin">
+        <decorator:head></decorator:head>
+        </head>
+        <body class="no-skin">
         <%@include file="/common/admin/navbar.jsp" %>
         <div class="main-container" id="main-container">
             <script type="text/javascript">
@@ -62,5 +63,6 @@
                     });
                 });
         </script>
-    </body>
+        <decorator:getProperty property="page.bottom_javascript"></decorator:getProperty>
+</body>
 </html>

@@ -8,7 +8,7 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="category" class="poly.core.persistence.entity.Category" fetch="select">
+        <many-to-one name="category" class="poly.core.persistence.entity.Category" fetch="join">
             <column name="category_id" not-null="true" />
         </many-to-one>
         <property name="name" type="string">
@@ -16,6 +16,9 @@
         </property>
         <property name="price" type="int">
             <column name="price" not-null="true" />
+        </property>
+        <property name="quantity" type="int">
+            <column name="quantity" not-null="true" />
         </property>
         <property name="description" type="string">
             <column name="description" length="65535" not-null="true" />

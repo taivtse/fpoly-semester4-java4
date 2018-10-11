@@ -12,35 +12,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import poly.core.dao.impl.UserDaoImpl;
-import poly.core.persistence.entity.User;
-import poly.web.common.WebConstant;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/login/admin"})
-public class LoginController extends HttpServlet {
+/**
+ *
+ * @author vothanhtai
+ */
+@WebServlet(name = "ProductInsertController", urlPatterns = {"/admin/product/insert"})
+public class ProductInsertController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        try {
-            User user = new UserDaoImpl().getUserByUsernameAndPassword(username, password);
-            if (user.getRole().getId() == WebConstant.ROLE_ADMIN) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("/admin/home");
-            } else {
-                request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-                request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản của bạn không có quyền truy cập vào trang quản trị");
-                request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
-            }
-        } catch (NullPointerException ex) {
-            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
-            request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if (action == null) {
+            request.getRequestDispatcher("/view/admin/product-insert.jsp").forward(request, response);
         }
-
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

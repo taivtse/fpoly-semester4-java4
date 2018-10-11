@@ -6,7 +6,6 @@
 package poly.core.controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/admin-home.html"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin/home"})
 public class AdminController extends HttpServlet {
 
     /**
@@ -32,8 +31,6 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
         request.getRequestDispatcher("/view/admin/index.jsp").forward(request, response);
     }
 

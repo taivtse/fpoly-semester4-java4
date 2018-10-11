@@ -7,39 +7,48 @@ package poly.core.controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import poly.core.dao.impl.UserDaoImpl;
-import poly.core.persistence.entity.User;
-import poly.web.common.WebConstant;
+import poly.core.dao.impl.CategoryDaoImpl;
+import poly.core.dao.impl.ProductDaoImpl;
+import poly.core.persistence.entity.Category;
+import poly.core.persistence.entity.Product;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/login/admin"})
-public class LoginController extends HttpServlet {
+/**
+ *
+ * @author vothanhtai
+ */
+@WebServlet(name = "ProductVewController", urlPatterns = {"/admin/product"})
+public class ProductViewController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
 
+        Integer categoryId = null;
+        List<Product> productList = null;
+        
         try {
-            User user = new UserDaoImpl().getUserByUsernameAndPassword(username, password);
-            if (user.getRole().getId() == WebConstant.ROLE_ADMIN) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("/admin/home");
-            } else {
-                request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-                request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản của bạn không có quyền truy cập vào trang quản trị");
-                request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
+            if (request.getParameter("category") != null) {
+                categoryId = Integer.parseInt(request.getParameter("category"));
             }
-        } catch (NullPointerException ex) {
-            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
-            request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
         }
+
+        if (categoryId != null) {
+            Category category = new CategoryDaoImpl().getById(categoryId);
+            productList = new ProductDaoImpl().getByProperties("category", category, null, null, null, null);
+        } else {
+            productList = new ProductDaoImpl().getAll();
+        }
+
+        request.setAttribute("productList", productList);
+        request.getRequestDispatcher("/view/admin/product-view.jsp").forward(request, response);
 
     }
 

@@ -12,8 +12,9 @@ public class Test {
         for (Category category : list) {
             System.out.println(category.getName());
             Set<Category> child = category.getChildCategories();
-            
-            System.out.println("as");
+            for (Category cateChild : child) {
+                System.out.println("----" + cateChild.getName());
+            }
         }
     }
 
