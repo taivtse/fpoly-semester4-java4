@@ -13,5 +13,5 @@ import poly.core.persistence.entity.User;
  * @author vothanhtai
  */
 public interface UserDao  extends GenericDao<Integer, User>{
-    
+    public User getUserByUsernameAndPassword(String username, String password);
 }

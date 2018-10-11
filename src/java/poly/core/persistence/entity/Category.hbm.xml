@@ -14,7 +14,10 @@
         <property name="sortOrder" type="int">
             <column name="sort_order" not-null="true" />
         </property>
-        <set name="childCategories" table="category" inverse="true" fetch="select">
+        <many-to-one name="parentCategory" class="poly.core.persistence.entity.Category" fetch="select">
+            <column name="parent_id" />
+        </many-to-one>
+        <set name="childCategories" table="category" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="parent_id" />
             </key>

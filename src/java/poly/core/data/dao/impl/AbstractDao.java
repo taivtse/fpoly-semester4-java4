@@ -41,7 +41,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         try {
             list = session.createCriteria(this.getPersistenceClass()).list();
         }catch (HibernateException ex){
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
@@ -57,7 +57,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             // note: the first parameter is class type, so we pass persistenceClass at this situation
             result = (T) session.get(this.getPersistenceClass(), id);
         }catch (HibernateException ex){
-            ex.printStackTrace();
+            throw ex;
         }finally{
             session.close();
         }
@@ -90,8 +90,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
 
             list = cr.list();
         }catch (HibernateException ex){
-            ex.printStackTrace();
-            return null;
+            throw ex;
         }finally{
             session.close();
         }
@@ -108,11 +107,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             return true;
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -125,11 +123,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             return true;
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -143,11 +140,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             return true;
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
-        return false;
     }
     
     @Override
@@ -162,11 +158,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             return true;
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -182,7 +177,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
@@ -199,10 +194,9 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             return true;
         }catch (HibernateException ex){
             transaction.rollback();
-            ex.printStackTrace();
+            throw ex;
         }finally {
             session.close();
         }
-        return false;
     }
 }
