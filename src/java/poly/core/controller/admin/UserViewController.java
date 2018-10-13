@@ -6,7 +6,7 @@
 package poly.core.controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +17,7 @@ import poly.core.dao.impl.RoleDaoImpl;
 import poly.core.dao.impl.UserDaoImpl;
 import poly.core.persistence.entity.Role;
 import poly.core.persistence.entity.User;
+import poly.web.common.WebConstant;
 
 /**
  *
@@ -25,69 +26,51 @@ import poly.core.persistence.entity.User;
 @WebServlet(name = "UserViewController", urlPatterns = {"/admin/user"})
 public class UserViewController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+//        Set breadcrumb
+        List<String> breadcrumb = new ArrayList<>();
+        breadcrumb.add("Người dùng");
+        
         Integer roleId = null;
         List<User> userList = null;
-        
+
         try {
-            if (request.getParameter("role") != null) {
-                roleId = Integer.parseInt(request.getParameter("role"));
+            if (request.getParameter("roleId") != null) {
+                roleId = Integer.parseInt(request.getParameter("roleId"));
             }
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Mã vai trò không hợp lệ");
+            request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
+            return;
         }
 
         if (roleId != null) {
             Role role = new RoleDaoImpl().getById(roleId);
+            
+//            Add item to breadcrumb
+            breadcrumb.add(role.getName());
+            
             userList = new UserDaoImpl().getByProperties("role", role, null, null, null, null);
         } else {
             userList = new UserDaoImpl().getAll();
         }
-
+        
+        request.setAttribute("breadcrumb", breadcrumb);
         request.setAttribute("userList", userList);
         request.getRequestDispatcher("/view/admin/user-view.jsp").forward(request, response);
-
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

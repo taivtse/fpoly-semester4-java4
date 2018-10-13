@@ -1,8 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
-
-<c:if test="${empty sessionScope.user}">
-    <c:redirect url = "/view/admin/login.jsp"/>
+<c:if test="${empty sessionScope.adminUser}">
+    <c:redirect url = "/admin/login"/>
 </c:if>
 
 <!DOCTYPE html>

@@ -1,10 +1,8 @@
 <%@page import="poly.core.dao.impl.RoleDaoImpl"%>
 <%@page import="poly.core.persistence.entity.Role"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="poly.core.dao.impl.CategoryDaoImpl"%>
 <%@page import="poly.core.persistence.entity.Category"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
     <script type="text/javascript">
         try {
@@ -45,7 +43,7 @@
 
     <ul class="nav nav-list">
         <li class="">
-            <a href="/admin-home.html">
+            <a href="/admin/home">
                 <i class="menu-icon fa fa-tachometer"></i>
                 <span class="menu-text"> Dashboard </span>
             </a>
@@ -90,7 +88,7 @@
                         <ul class="submenu">
                             <c:forEach var="child" items="${root.childCategories}">
                                 <li class="">
-                                    <a href="/admin/product?category=${child.id}">
+                                    <a href="/admin/product?categoryId=${child.id}">
                                         <i class="menu-icon fa fa-caret-right"></i>
                                         ${child.name}
                                     </a>
@@ -102,7 +100,7 @@
                 </c:forEach>  
             </ul>
         </li>
-        
+
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-desktop"></i>
@@ -129,7 +127,7 @@
                 %>
                 <c:forEach var="role" items="<%=roles%>">
                     <li class="">
-                        <a href="/admin/user?role=${role.id}">
+                        <a href="/admin/user?roleId=${role.id}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             ${role.name}
                         </a>

@@ -16,70 +16,40 @@ import poly.core.dao.impl.UserDaoImpl;
 import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/login/admin"})
+@WebServlet(name = "LoginController", urlPatterns = {"/admin/login"})
 public class LoginController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         try {
             User user = new UserDaoImpl().getUserByUsernameAndPassword(username, password);
             if (user.getRole().getId() == WebConstant.ROLE_ADMIN) {
-                request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("adminUser", user);
                 response.sendRedirect("/admin/home");
+                return;
             } else {
-                request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
                 request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản của bạn không có quyền truy cập vào trang quản trị");
-                request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
             }
         } catch (NullPointerException ex) {
-            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
             request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
-            request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
         }
-
+        
+        request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
+        request.getRequestDispatcher("/view/admin/login.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

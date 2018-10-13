@@ -2,6 +2,7 @@ package poly.web.common;
 
 public class WebConstant {
     public static final String MESSAGE_RESPONSE = "messageResponse";
+    public static final String MESSAGE_ERROR = "messageError";
     public static final String ALERT = "alert";
     public static final String TYPE_SUCCESS = "success";
     public static final String TYPE_ERROR = "danger";

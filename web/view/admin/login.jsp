@@ -1,30 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="loginFormUrl" value="/login/admin"/>
+<c:url var="loginFormUrl" value="/admin/login"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <meta charset="utf-8"/>
-        <title><fmt:message key="label.login" bundle="${lang}"></fmt:message></title>
-
-        <meta name="description" content="User login page"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/template/admin/favicon.ico'/>">
-
-        <!-- bootstrap & fontawesome -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css'/>"/>
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/font-awesome/4.2.0/css/font-awesome.min.css'/>"/>
-
-        <!-- text fonts -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/fonts/fonts.googleapis.com.css'/>"/>
-
-        <!-- ace styles -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/ace.min.css'/>"/>
-
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/ace-rtl.min.css'/>"/>
+        <title>Admin login</title>
+        <%@include file="/common/admin/css.jsp" %>
     </head>
 
     <body class="login-layout blur-login">
@@ -40,7 +20,7 @@
                                     <span class="white" id="id-text2">Application</span>
                                 </h1>
                                 <h4 class="light-blue" id="id-company-text">&copy; 
-                                    <fmt:message key="lable.company.name" bundle="${lang}"></fmt:message>
+                                    FPT POLYTECHNIC
                                 </h4>
                             </div>
 
@@ -52,17 +32,17 @@
                                         <div class="widget-main">
                                             <h4 class="header blue lighter bigger">
                                                 <i class="ace-icon fa fa-coffee green"></i>
-                                                <fmt:message key="label.admin.loginbox.title" bundle="${lang}"></fmt:message>
+                                                Please Enter Your Information
                                             </h4>
 
                                             <div class="space-6"></div>
-                                            
+
                                             <c:if test="${not empty messageResponse}">
-                                            <div class="alert alert-${alert}" role="alert">
-                                                <strong>${messageResponse}</strong>
-                                            </div>
+                                                <div class="alert alert-${alert}" role="alert">
+                                                    ${messageResponse}
+                                                </div>
                                             </c:if>
-                                            
+
                                             <form action="${loginFormUrl}" method="POST">
                                                 <fieldset>
                                                     <label class="block clearfix">
@@ -270,7 +250,7 @@
         </div><!-- /.main-container -->
 
         <!-- basic scripts -->
-        <script src="<c:url value='/template/admin/assets/js/jquery.2.1.1.min.js'/>"></script>
+        <script src="<c:out value='${urlAdminTemplate}'/>assets/js/jquery.2.1.1.min.js"></script>
 
         <!-- inline scripts related to this page -->
         <script type="text/javascript">

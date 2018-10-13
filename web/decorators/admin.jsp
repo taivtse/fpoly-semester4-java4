@@ -7,27 +7,26 @@
         <meta charset="utf-8" />
         <title><decorator:title default="Admin page"></decorator:title></title>
 
-            <meta name="description" content="" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-            <!-- Favicon -->
-            <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/template/admin/favicon.ico'/>">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="<c:out value='${urlAdminTemplate}'/>favicon.ico'/>">
 
         <!-- bootstrap & fontawesome -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css'/>" />
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/font-awesome/4.2.0/css/font-awesome.min.css'/>" />
+        <link rel="stylesheet" href="<c:out value='${urlAdminTemplate}'/>assets/css/bootstrap.min.css'/>" />
+        <link rel="stylesheet" href="<c:out value='${urlAdminTemplate}'/>assets/font-awesome/4.2.0/css/font-awesome.min.css'/>" />
 
         <!-- text fonts -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/fonts/fonts.googleapis.com.css'/>" />
+        <link rel="stylesheet" href="<c:out value='${urlAdminTemplate}'/>assets/fonts/fonts.googleapis.com.css'/>" />
 
         <!-- ace styles -->
-        <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style'/>" />
+        <link rel="stylesheet" href="<c:out value='${urlAdminTemplate}'/>assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style'/>" />
 
         <!-- ace settings handler -->
-        <script src="<c:url value='/template/admin/assets/js/ace-extra.min.js'/>"></script>
-        <decorator:head></decorator:head>
-        </head>
-        <body class="no-skin">
+        <script src="<c:out value='${urlAdminTemplate}'/>assets/js/ace-extra.min.js"></script>
+    </head>
+    <body class="no-skin">
         <%@include file="/common/admin/navbar.jsp" %>
         <div class="main-container" id="main-container">
             <script type="text/javascript">
@@ -38,7 +37,7 @@
             </script>
             <%@include file="/common/admin/sidebar.jsp" %>
             <decorator:body></decorator:body>
-            <%@include file="/common/admin/footer.jsp" %>
+                <%@include file="/common/admin/footer.jsp" %>
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
@@ -63,6 +62,6 @@
                     });
                 });
         </script>
-        <decorator:getProperty property="page.bottom_javascript"></decorator:getProperty>
+    <decorator:getProperty property="page.bottom_javascript"></decorator:getProperty>
 </body>
 </html>
