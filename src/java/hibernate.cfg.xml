@@ -40,18 +40,18 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/java4</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">VoThanhTai016520</property>
-    <mapping resource="poly/core/persistence/entity/CartDetail.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/Cart.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/Role.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/Product.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/User.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/Category.hbm.xml"/>
-    <mapping resource="poly/core/persistence/entity/Invoice.hbm.xml"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/java4</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">VoThanhTai016520</property>
+        <mapping resource="poly/core/persistence/entity/CartDetail.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/Cart.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/Role.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/Product.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/User.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/Category.hbm.xml"/>
+        <mapping resource="poly/core/persistence/entity/Invoice.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>

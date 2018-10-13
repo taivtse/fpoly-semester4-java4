@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poly.core.controller.admin;
+package poly.core.controller.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,19 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import poly.core.dao.impl.CategoryDaoImpl;
-import poly.core.dao.impl.ProductDaoImpl;
-import poly.core.persistence.entity.Category;
-import poly.core.persistence.entity.Product;
-import poly.core.util.FileUtil;
 
 /**
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductInsertController", urlPatterns = {"/admin/product/insert"})
-public class ProductInsertController extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/client/logout"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,42 +32,8 @@ public class ProductInsertController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-        String action = request.getParameter("action");
-        if (action == null) {
-            request.getRequestDispatcher("/view/admin/product-insert.jsp").forward(request, response);
-            return;
-        }
-        
-        String name = request.getParameter("name");
-        int categoryId = Integer.parseInt(request.getParameter("category"));
-        int price = Integer.parseInt(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String description = request.getParameter("description");
-        Part image = request.getPart("image");
-        String imageUrl = image.getSubmittedFileName();
-        
-        Category category = new CategoryDaoImpl().getById(categoryId);
-        
-        Product product = new Product();
-        product.setCategory(category);
-        product.setName(name);
-        product.setPrice(price);
-        product.setQuantity(quantity);
-        product.setDescription(description);
-        product.setImageUrl(imageUrl);
-                
-        boolean isInserted = new ProductDaoImpl().insert(product);
-        if (isInserted) {
-            String uploadRootPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "image" + File.separator);
-            boolean uploadedImage = new FileUtil().uploadFile(imageUrl, image, uploadRootPath);
-            if (!uploadedImage) {
-                request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
-            }
-            
-            response.sendRedirect("/admin/product");
-        }
+        request.getSession().removeAttribute("userClient");
+        response.sendRedirect("/client/product");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

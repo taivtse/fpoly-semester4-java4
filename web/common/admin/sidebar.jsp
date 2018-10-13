@@ -1,3 +1,5 @@
+<%@page import="poly.core.dao.impl.RoleDaoImpl"%>
+<%@page import="poly.core.persistence.entity.Role"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="poly.core.dao.impl.CategoryDaoImpl"%>
 <%@page import="poly.core.persistence.entity.Category"%>
@@ -62,9 +64,9 @@
             </a>
 
             <b class="arrow"></b>
-            
+
             <ul class="submenu">
-                <li class="/admin/product-list">
+                <li class="">
                     <a href="/admin/product">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Tất cả sản phẩm
@@ -96,6 +98,42 @@
                                 </li>
                             </c:forEach>
                         </ul>
+                    </li>
+                </c:forEach>  
+            </ul>
+        </li>
+        
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-desktop"></i>
+                <span class="menu-text">
+                    Quản lý người dùng
+                </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                <li class="">
+                    <a href="/admin/user">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Tất cả người dùng
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                <%
+                    List<Role> roles = new RoleDaoImpl().getAll();
+                %>
+                <c:forEach var="role" items="<%=roles%>">
+                    <li class="">
+                        <a href="/admin/user?role=${role.id}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            ${role.name}
+                        </a>
+                        <b class="arrow"></b>
                     </li>
                 </c:forEach>  
             </ul>

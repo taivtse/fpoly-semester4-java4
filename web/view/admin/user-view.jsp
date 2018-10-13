@@ -55,13 +55,13 @@
                 <div class="page-content">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 class="header smaller lighter blue" style="display: block;">Danh sách sản phẩm</h3>
+                            <h3 class="header smaller lighter blue" style="display: block;">Danh sách người dùng</h3>
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="row">
                                 <div class="col-xs-12 text-right">
                                     <a href="/admin/product/insert" class="btn btn-sm btn-success">
                                         <i class="ace-icon glyphicon glyphicon-plus"></i>
-                                        Thêm sản phẩm</a>
+                                        Thêm người dùng</a>
                                 </div>
                             </div>
 
@@ -77,17 +77,18 @@
                                                         <span class="lbl"></span>
                                                     </label>
                                                 </th>
-                                                <th class="col-xs-3">Name</th>
-                                                <th class="col-xs-2">Price</th>
-                                                <th class="col-xs-1">Quantity</th>
-                                                <th class="col-xs-2">Image</th>
-                                                <th class="col-xs-2">Category</th>
+                                                <th class="col-xs-1">Username</th>
+                                                <th class="col-xs-2">Full name</th>
+                                                <th class="col-xs-2">Email</th>
+                                                <th class="col-xs-1">Phone</th>
+                                                <th class="col-xs-2">Address</th>
+                                                <th class="col-xs-2">Role</th>
                                                 <th class="col-xs-1">Action</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <c:forEach var="product" items="${productList}">
+                                            <c:forEach var="user" items="${userList}">
                                                 <tr>
                                                     <td class="center middle">
                                                         <label class="pos-rel">
@@ -97,28 +98,25 @@
                                                     </td>
 
                                                     <td>
-                                                        <a href="#">${product.name}</a>
+                                                        <a href="#">${user.username}</a>
                                                     </td>
 
-                                                    <td>${product.price}</td>
+                                                    <td>${user.fullname}</td>
 
-                                                    <td>${product.quantity}</td>
+                                                    <td>${user.email}</td>
 
-                                                    <td class="center">
-                                                        <img class="product-small-item" src="<c:url value='/resources/image/${product.imageUrl}'/>" />
-                                                    </td>
+                                                    <td>${user.phone}</td>
 
-                                                    <td>
-                                                        ${product.category.name}
-                                                    </td>
+                                                    <td>${user.address}</td>
+                                                    <td>${user.role.name}</td>
 
                                                     <td class="center">
                                                         <div class="hidden-sm hidden-xs btn-group">
-                                                            <a class="btn btn-xs btn-info" href="/admin/product/update?id=${product.id}">
+<!--                                                            <a class="btn btn-xs btn-info" href="/admin/user/update?id=">
                                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                            </a>
+                                                            </a>-->
 
-                                                            <a class="btn btn-xs btn-danger" href="/admin/product/delete?id=${product.id}">
+                                                            <a class="btn btn-xs btn-danger" href="/admin/user/delete?id=${user.id}">
                                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                             </a>
                                                         </div>

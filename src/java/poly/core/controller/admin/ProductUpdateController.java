@@ -24,8 +24,8 @@ import poly.core.util.FileUtil;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductInsertController", urlPatterns = {"/admin/product/insert"})
-public class ProductInsertController extends HttpServlet {
+@WebServlet(name = "ProductUpdateController", urlPatterns = {"/admin/product/update"})
+public class ProductUpdateController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,12 +41,15 @@ public class ProductInsertController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        int id = Integer.parseInt(request.getParameter("id"));
         String action = request.getParameter("action");
         if (action == null) {
-            request.getRequestDispatcher("/view/admin/product-insert.jsp").forward(request, response);
+            Product product = new ProductDaoImpl().getById(id);
+            request.setAttribute("product", product);
+            request.getRequestDispatcher("/view/admin/product-update.jsp").forward(request, response);
             return;
         }
-        
+
         String name = request.getParameter("name");
         int categoryId = Integer.parseInt(request.getParameter("category"));
         int price = Integer.parseInt(request.getParameter("price"));
@@ -54,25 +57,29 @@ public class ProductInsertController extends HttpServlet {
         String description = request.getParameter("description");
         Part image = request.getPart("image");
         String imageUrl = image.getSubmittedFileName();
-        
+
         Category category = new CategoryDaoImpl().getById(categoryId);
-        
-        Product product = new Product();
+
+        Product product = new ProductDaoImpl().getById(id);
         product.setCategory(category);
         product.setName(name);
         product.setPrice(price);
         product.setQuantity(quantity);
         product.setDescription(description);
-        product.setImageUrl(imageUrl);
-                
-        boolean isInserted = new ProductDaoImpl().insert(product);
-        if (isInserted) {
-            String uploadRootPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "image" + File.separator);
-            boolean uploadedImage = new FileUtil().uploadFile(imageUrl, image, uploadRootPath);
-            if (!uploadedImage) {
-                request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
+        if (!imageUrl.equals("")) {
+            product.setImageUrl(imageUrl);
+        }
+        
+        boolean isUpdated = new ProductDaoImpl().update(product);
+        if (isUpdated) {
+            if (!imageUrl.equals("")) {
+                String uploadRootPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "image" + File.separator);
+                boolean uploadedImage = new FileUtil().uploadFile(imageUrl, image, uploadRootPath);
+                if (!uploadedImage) {
+                    request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
+                }
             }
-            
+
             response.sendRedirect("/admin/product");
         }
     }

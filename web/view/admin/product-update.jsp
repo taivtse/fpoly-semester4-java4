@@ -6,7 +6,7 @@
 <c:if test="${empty sessionScope.user}">
     <c:redirect url = "/view/admin/login.jsp"/>
 </c:if>
-<c:url var="insertFormUrl" value="/admin/product/insert"/>
+<c:url var="udpateFormUrl" value="/admin/product/update"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -57,30 +57,31 @@
                 <div class="page-content">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 class="header smaller lighter blue" style="display: block;">Thêm mới sản phẩm</h3>
+                            <h3 class="header smaller lighter blue" style="display: block;">Cập nhật sản phẩm</h3>
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="hr hr-18 dotted hr-double"></div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <form class="form-horizontal" role="form" action="${insertFormUrl}" method="POST" enctype="multipart/form-data">
+                                    <form class="form-horizontal" role="form" action="${udpateFormUrl}" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="${product.id}" />
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Tên sản phẩm</label>
                                             <div class="col-sm-6">
-                                                <input type="text" name="name" class="col-xs-12">
+                                                <input type="text" name="name" value="${product.name}" class="col-xs-12">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Giá bán</label>
                                             <div class="col-sm-6">
-                                                <input type="number" name="price" class="col-xs-12">
+                                                <input type="number" name="price" value="${product.price}" class="col-xs-12">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Số lượng</label>
                                             <div class="col-sm-6">
-                                                <input type="number" name="quantity" class="col-xs-12">
+                                                <input type="number" name="quantity" value="${product.quantity}" class="col-xs-12">
                                             </div>
                                         </div>
 
@@ -92,7 +93,7 @@
                                                         List<Category> categorys = new CategoryDaoImpl().getAllChildCategory();
                                                     %>
                                                     <c:forEach var="category" items="<%=categorys%>">
-                                                        <option value="${category.id}">${category.name}</option>
+                                                        <option value="${category.id}" ${category.id eq product.category.id ? "selected" : ""}>${category.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -101,21 +102,21 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Mô tả</label>
                                             <div class="col-sm-6">
-                                                <textarea name="description" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 100px;"></textarea>
+                                                <textarea name="description" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 100px;">${product.description}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Hình ảnh</label>
                                             <div class="col-sm-6">
-                                                <img style="width: 150px; height: 150px; background-color: #ffffff" id="product-image">
+                                                <img src="/resources/image/${product.imageUrl}" style="width: 150px; height: 150px; background-color: #ffffff" id="product-image">
                                                 <input type="file" name="image" id="image_url"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"></label>
                                             <div class="col-sm-6 text-right">
-                                                <button name="action" value="insert" type="submit" class="btn btn-sm btn-primary">Thêm sản phẩm</button>
+                                                <button name="action" value="insert" type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
                                             </div>
                                         </div>
                                     </form>

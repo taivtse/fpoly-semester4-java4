@@ -16,4 +16,5 @@ import poly.core.persistence.entity.Category;
 public interface CategoryDao  extends GenericDao<Integer, Category>{
     public List<Category> getRootCategory();
     public List<Category> getChildCategory(Category parentCategory);
+    public List<Category> getAllChildCategory();
 }

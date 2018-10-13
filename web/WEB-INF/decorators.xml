@@ -6,6 +6,8 @@
         <pattern>/error-404.html</pattern>
         <pattern>*login.jsp</pattern>
         <pattern>/ajax*</pattern>
+        <pattern>/view/*</pattern>
+        <pattern>/template*</pattern>
     </excludes>
 
     <decorator name="admin" page="admin.jsp">
@@ -13,6 +15,6 @@
     </decorator>
 
     <decorator name="web" page="web.jsp">
-        <pattern>/*</pattern>
+        <pattern>/client*</pattern>
     </decorator>
 </decorators>
