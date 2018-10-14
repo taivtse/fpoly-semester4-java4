@@ -13,3 +13,4 @@
 
 <c:url value="/admin/login" var="adminLoginFormUrl" />
 <c:url value="/login" var="customerLoginFormUrl" />
+<c:url value="/register" var="customerRegisterFormUrl" />

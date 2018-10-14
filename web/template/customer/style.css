@@ -643,7 +643,7 @@ input.search-form[placeholder]:-ms-input-placeholder {
 .header-right-callus:before{
     background: #ff4f4f none repeat scroll 0 0;
     color: #fff;
-    content: "";
+    content: "ï‚•";
     display: inline-block;
     font-family: FontAwesome;
     font-size: 20px;
@@ -1723,7 +1723,7 @@ div.client-carousel .owl-item img {
     top:0;
     left:0;
     line-height:23px;
-    content:"";
+    content:"ï„";
     font-family:fontawesome;
 }
 .single-f-widget ul li a:hover{
@@ -1815,7 +1815,7 @@ body.index-2 .category-heading h2{
 }
 body.index-2 .category-heading h2:before{
     background: #a08803 none repeat scroll 0 0;
-    content: "";
+    content: "ïƒ‰";
     display: block;
     float: left;
     font-family: "FontAwesome";
@@ -3215,7 +3215,7 @@ form.error-ser-form .error-ser-btn:hover{
     margin-right: 35px;
 }  
 .personal-infomation .primary-form-group input{
-    max-width:270px
+    max-width: 370px;
 }
 .birth-day, .birth-month, .birth-year{
     background: rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -412px 0px;

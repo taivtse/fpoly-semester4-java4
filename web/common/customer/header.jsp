@@ -53,6 +53,7 @@
                             <c:choose>
                                 <c:when test="${empty sessionScope.customerUser}">
                                     <li><a href="/login">Đăng nhập</a></li>
+                                    <li><a href="/register">Đăng ký</a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li><a href="">${sessionScope.customerUser.fullname}</a></li>

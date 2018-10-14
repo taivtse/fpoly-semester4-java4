@@ -6,6 +6,8 @@
 package poly.core.controller.customer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import poly.core.dao.impl.RoleDaoImpl;
 import poly.core.dao.impl.UserDaoImpl;
 import poly.core.persistence.entity.User;
+import poly.web.common.WebConstant;
 
 /**
  *
@@ -21,24 +24,21 @@ import poly.core.persistence.entity.User;
  */
 @WebServlet(name = "RegisterCustomerController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("action") == null) {
-            request.getRequestDispatcher("/view/web/register.jsp").forward(request, response);
-            return;
-        }
+//        Set breadcrumb
+        List<String> breadcrumb = new ArrayList<>();
+        breadcrumb.add("Đăng ký tài khoản");
+        request.setAttribute("breadcrumb", breadcrumb);
         
+        request.getRequestDispatcher("/view/customer/register.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String fullname = request.getParameter("fullname");
@@ -55,50 +55,17 @@ public class RegisterController extends HttpServlet {
         user.setEmail(email);
         user.setRole(new RoleDaoImpl().getById(2));
         
-        boolean isInserted = new UserDaoImpl().insert(user);
-        if (isInserted) {
-            request.getSession().setAttribute("userClient", user);
-            response.sendRedirect("/client/product");
-            return;
-        }else{
-            request.getRequestDispatcher("/view/web/error-404.html").forward(request, response);
+        try {
+            new UserDaoImpl().insert(user);
+            request.getSession().setAttribute("customerUser", user);
+            response.sendRedirect("/");
+        } catch (Exception e) {
+            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
+            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Đăng ký tài khoản thất bại");
+            request.getRequestDispatcher("/view/customer/register.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
