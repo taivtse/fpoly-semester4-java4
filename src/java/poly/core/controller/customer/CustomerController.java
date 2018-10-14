@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "CustomerController", urlPatterns = {"/"})
+@WebServlet(name = "CustomerController", urlPatterns = {""})
 public class CustomerController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/view/web/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/index.jsp").forward(request, response);
     }
 
     @Override

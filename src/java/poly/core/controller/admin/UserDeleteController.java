@@ -18,7 +18,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "UserDeleteController", urlPatterns = {"/admin/user/delete"})
+@WebServlet(name = "UserDeleteAdminController", urlPatterns = {"/admin/user/delete"})
 public class UserDeleteController extends HttpServlet {
 
     @Override

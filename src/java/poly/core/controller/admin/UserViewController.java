@@ -23,7 +23,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "UserViewController", urlPatterns = {"/admin/user"})
+@WebServlet(name = "UserViewAdminController", urlPatterns = {"/admin/user"})
 public class UserViewController extends HttpServlet {
 
     @Override

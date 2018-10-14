@@ -18,7 +18,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductDeleteController", urlPatterns = {"/admin/product/delete"})
+@WebServlet(name = "ProductDeleteAdminController", urlPatterns = {"/admin/product/delete"})
 public class ProductDeleteController extends HttpServlet {
 
     @Override

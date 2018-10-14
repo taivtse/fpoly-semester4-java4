@@ -19,7 +19,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "LoginClientController", urlPatterns = {"/login"})
+@WebServlet(name = "LoginCustomerController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
     @Override

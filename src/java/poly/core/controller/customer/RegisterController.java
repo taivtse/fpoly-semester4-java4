@@ -6,7 +6,6 @@
 package poly.core.controller.customer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ import poly.core.persistence.entity.User;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/client/register"})
+@WebServlet(name = "RegisterCustomerController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
 
     /**

@@ -26,7 +26,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductInsertController", urlPatterns = {"/admin/product/insert"})
+@WebServlet(name = "ProductInsertAdminController", urlPatterns = {"/admin/product/insert"})
 public class ProductInsertController extends HttpServlet {
 
     @Override

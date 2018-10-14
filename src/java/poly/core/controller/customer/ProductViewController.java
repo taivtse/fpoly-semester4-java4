@@ -21,7 +21,7 @@ import poly.core.persistence.entity.Product;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductViewController", urlPatterns = {"/client/product"})
+@WebServlet(name = "ProductViewCustomerController", urlPatterns = {"/product"})
 public class ProductViewController extends HttpServlet {
 
     /**

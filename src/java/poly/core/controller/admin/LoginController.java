@@ -6,7 +6,6 @@
 package poly.core.controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import poly.core.dao.impl.UserDaoImpl;
 import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/admin/login"})
+@WebServlet(name = "LoginAdminController", urlPatterns = {"/admin/login"})
 public class LoginController extends HttpServlet {
 
     @Override
