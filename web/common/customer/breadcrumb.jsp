@@ -1,5 +1,7 @@
 <div class="bstore-breadcrumb">
-    <a href="index.html">HOMe</a>
+    <a href="/">Trang chủ</a>
+    <c:forEach var="item" items="${requestScope.breadcrumb}">
     <span><i class="fa fa-caret-right"></i></span>
-    <span>Sign in / Register</span>
+    <span>${item}</span>
+    </c:forEach>
 </div>

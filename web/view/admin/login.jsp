@@ -1,5 +1,4 @@
 <%@include file="/common/taglib.jsp" %>
-<c:url var="loginFormUrl" value="/admin/login"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,7 +42,7 @@
                                                 </div>
                                             </c:if>
 
-                                            <form action="${loginFormUrl}" method="POST">
+                                            <form action="${adminLoginFormUrl}" method="POST">
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">

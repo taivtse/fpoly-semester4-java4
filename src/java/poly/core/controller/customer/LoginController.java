@@ -6,6 +6,8 @@
 package poly.core.controller.customer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        Set breadcrumb
+        List<String> breadcrumb = new ArrayList<>();
+        breadcrumb.add("Đăng nhập");
+        request.setAttribute("breadcrumb", breadcrumb);
+        
         request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);
     }
 
@@ -36,11 +43,16 @@ public class LoginController extends HttpServlet {
 
         try {
             User user = new UserDaoImpl().getUserByUsernameAndPassword(username, password);
-            request.getSession().setAttribute("adminUser", user);
+            if (user == null) {
+                throw new NullPointerException();
+            }
+            
+            request.getSession().setAttribute("customerUser", user);
             response.sendRedirect("/");
         } catch (NullPointerException ex) {
+            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
             request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
-            request.getRequestDispatcher("/view/web/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);
         }
     }
 

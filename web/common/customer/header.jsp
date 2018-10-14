@@ -9,9 +9,6 @@
             <!-- HEADER-LEFT-MENU START -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="header-left-menu">
-                    <div class="welcome-info">
-                        Welcome <span>BootExperts</span>
-                    </div>
                     <div class="currenty-converter">
                         <form method="post" action="#" id="currency-set">
                             <div class="current-currency">
@@ -52,24 +49,16 @@
                 <div class="header-right-menu">
                     <nav>
                         <ul class="list-inline">
-                            <li><a href="checkout.html">Check Out</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="my-account.html">My Account</a></li>
-                            <li><a href="cart.html">My Cart</a></li>
-                                <%
-                                    User userClient = null;
-                                    if (request.getSession().getAttribute("userClient") == null) {
-                                %>
-                                <li><a href="/client/login">Login</a></li>
-                                <%} else {
-                                    userClient = (User) request.getSession().getAttribute("userClient");
-                                }%>
-                                <%
-                                    if (userClient != null) {
-                                %>
-                                <li><a href="cart.html"><%=userClient.getFullname()%></a></li>
-                                <li><a href="/client/logout">Logout</a></li>
-                                <%}%>
+                            <li>Xin chào</li>
+                            <c:choose>
+                                <c:when test="${empty sessionScope.customerUser}">
+                                    <li><a href="/login">Đăng nhập</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="">${sessionScope.customerUser.fullname}</a></li>
+                                    <li><a href="/logout">Đăng xuất</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>									
                     </nav>
                 </div>
@@ -84,7 +73,7 @@
             <div class="col-sm-12">
                 <!-- LOGO START -->
                 <div class="logo">
-                    <a href="index.html"><img src="img/logo.png" alt="bstore logo"></a>
+                    <a href="index.html"><img src="${customerTemplateUrl}img/logo.png" alt="bstore logo"></a>
                 </div>
                 <!-- LOGO END -->
                 <!-- HEADER-RIGHT-CALLUS START -->
@@ -129,7 +118,7 @@
                             <div class="shipping-item">
                                 <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
                                 <div class="shipping-item-image">
-                                    <a href="#"><img src="img/shopping-image.jpg" alt="shopping image"></a>
+                                    <a href="#"><img src="${customerTemplateUrl}img/shopping-image.jpg" alt="shopping image"></a>
                                 </div>
                                 <div class="shipping-item-text">
                                     <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Watch</a></span>
@@ -140,7 +129,7 @@
                             <div class="shipping-item">
                                 <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
                                 <div class="shipping-item-image">
-                                    <a href="#"><img src="img/shopping-image2.jpg" alt="shopping image"></a>
+                                    <a href="#"><img src="${customerTemplateUrl}img/shopping-image2.jpg" alt="shopping image"></a>
                                 </div>
                                 <div class="shipping-item-text">
                                     <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Women Bag</a></span>
@@ -171,24 +160,43 @@
                 <div class="mainmenu">
                     <nav>
                         <ul class="list-inline mega-menu">
-                            <li><a href="index.html">Home</a>
-                            </li>
+                            <li><a href="/">Trang chủ</a></li>
+
                             <%
                                 List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
-                            %>
-                            <c:forEach var="root" items="<%=rootCategory%>">
-                                <li><a href="">${root.name}</a>
-                                    <!-- DROPDOWN MENU START -->
-                                    <div class="home-var-menu">
-                                        <ul class="home-menu">
-                                            <c:forEach var="child" items="${root.childCategories}">
-                                                <li><a href="/client/product?category=${child.id}">${child.name}</a></li>
-                                            </c:forEach>
-                                        </ul>												
+                                for (Category root : rootCategory) {%>
+                            <li>
+                                <a href=""><%=root.getName()%></a>
+                                <!-- DRODOWN-MEGA-MENU START -->
+                                <div class="drodown-mega-menu">
+                                    <%
+                                        List<Category> childCategory = new CategoryDaoImpl().getChildCategory(root);
+                                    %>
+                                    <div class="left-mega col-xs-6">
+                                        <div class="mega-menu-list">
+                                            <%
+                                                for (int i = 0; i < childCategory.size() / 2; i ++) {%>
+                                            <ul>
+                                                <li><a href=""><%=childCategory.get(i).getName()%></a></li>
+                                            </ul>
+                                            <%}%>
+                                        </div>
                                     </div>
-                                    <!-- DROPDOWN MENU END -->
-                                </li>
-                            </c:forEach>
+
+                                    <div class="right-mega col-xs-6">
+                                        <div class="mega-menu-list">
+                                            <%
+                                                for (int i = childCategory.size() / 2; i < childCategory.size(); i ++) {%>
+                                            <ul>
+                                                <li><a href=""><%=childCategory.get(i).getName()%></a></li>
+                                            </ul>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- DRODOWN-MEGA-MENU END -->
+                            </li>
+                            <%}%>
                         </ul>
                     </nav>
                 </div>

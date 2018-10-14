@@ -74,30 +74,31 @@
                 </li>
                 <%
                     List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
-                %>
-                <c:forEach var="root" items="<%=rootCategory%>">
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            ${root.name}
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
+                    for (Category root : rootCategory) {%>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <%=root.getName()%>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
 
-                        <b class="arrow"></b>
+                    <b class="arrow"></b>
 
-                        <ul class="submenu">
-                            <c:forEach var="child" items="${root.childCategories}">
-                                <li class="">
-                                    <a href="/admin/product?categoryId=${child.id}">
-                                        <i class="menu-icon fa fa-caret-right"></i>
-                                        ${child.name}
-                                    </a>
-                                    <b class="arrow"></b>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </c:forEach>  
+                    <ul class="submenu">
+                        <%
+                            List<Category> childCategory = new CategoryDaoImpl().getChildCategory(root);
+                            for (Category child : childCategory) {%>
+                        <li class="">
+                            <a href="/admin/product?categoryId=<%=child.getId()%>">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                <%=child.getName()%>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+                <%}%>
             </ul>
         </li>
 

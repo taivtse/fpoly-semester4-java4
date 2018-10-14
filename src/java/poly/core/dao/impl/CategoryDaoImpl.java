@@ -37,6 +37,7 @@ public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements C
         Session session = this.getSession();
         try {
             Criteria cr = session.createCriteria(this.getPersistenceClass());
+            cr.addOrder(Order.asc("sortOrder"));
             cr.add(Restrictions.eq("parentCategory", parentCategory));
             list = cr.list();
         } catch (HibernateException ex) {

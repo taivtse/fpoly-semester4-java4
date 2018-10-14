@@ -2,19 +2,15 @@
 <!doctype html>
 <head>
     <title>Trang chủ</title>
+    <%@include file="/common/customer/top-embed.jsp" %>
 </head>
 <body>
+    <%@include file="/common/customer/header.jsp" %>
     <section class="main-content-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <!-- BSTORE-BREADCRUMB START -->
-                    <div class="bstore-breadcrumb">
-                        <a href="index.html">HOMe</a>
-                        <span><i class="fa fa-caret-right"></i></span>
-                        <span>Women</span>
-                    </div>
-                    <!-- BSTORE-BREADCRUMB END -->
+                    <%@include file="/common/customer/breadcrumb.jsp" %>
                 </div>
             </div>
             <div class="row">
@@ -306,43 +302,41 @@
                     <div class="all-gategory-product">
                         <div class="row">
                             <ul class="gategory-product">
+                                <!-- SINGLE ITEM START -->
                                 <c:forEach var="product" items="${productList}">
-                                    <!-- SINGLE ITEM START -->
-                                    <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="single-product-item">
-                                            <div class="product-image">
-                                                <a href="/client/product/view?id=${product.id}"><img src="/resources/image/${product.imageUrl}" alt="product-image" style="width: 80%; height: 150px;"></a>
-                                                <div class="overlay-content">
-                                                    <ul>
-                                                        <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                        <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                        <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
+                                    <li class="cat-product-list">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="single-product-item">
+                                                <div class="product-image">
+                                                    <a href=""><img src="${imageRootUrl.concat(product.imageUrl)}" alt="product-image"></a>
                                                 </div>
                                             </div>
-                                            <div class="product-info">
-                                                <div class="customar-comments-box">
-                                                    <div class="rating-box">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-half-empty"></i>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                            <div class="list-view-content">
+                                                <div class="single-product-item">
+                                                    <div class="product-info">
+                                                        <div class="customar-comments-box">
+                                                            <a href="">${product.name}</a>
+                                                        </div>
+                                                        <div class="product-datails">
+                                                            <p>${product.description}</p>
+                                                        </div>
+                                                        <div class="price-box">
+                                                            <span class="price">${product.price}</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="review-box">
-                                                        <span>1 Review(s)</span>
-                                                    </div>
-                                                </div>
-                                                <a href="/client/product/view?id=${product.id}">${product.name}</a>
-                                                <div class="price-box">
-                                                    <span class="price">${product.price}</span>
-                                                </div>
+                                                    <div class="overlay-content-list">
+                                                        <ul>
+                                                            <li><a href="#" class="add-cart-text">Thêm vào giỏ hàng</a></li>
+                                                        </ul>
+                                                    </div>												
+                                                </div>														
                                             </div>
-                                        </div>									
+                                        </div>
                                     </li>
-                                    <!-- SINGLE ITEM END -->								
                                 </c:forEach>
+                                <!-- SINGLE ITEM END -->
                             </ul>
                         </div>
                     </div>
@@ -351,5 +345,7 @@
             </div>
         </div>
     </section>
+    <%@include file="/common/customer/footer.jsp" %>
+    <%@include file="/common/customer/bottom-embed.jsp" %>
 </body>
 </html>

@@ -2,12 +2,6 @@
 ============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="${customerTemplateUrl}img/favicon.png">
 
-<!-- FONTS
-============================================ -->	
-<link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'> 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-
 <!-- animate CSS
 ============================================ -->
 <link rel="stylesheet" href="${customerTemplateUrl}css/animate.css">				
@@ -31,14 +25,6 @@
 <!-- NIVO SLIDER CSS
 ============================================ -->			
 <link rel="stylesheet" href="${customerTemplateUrl}css/nivo-slider.css">
-
-<!-- OWL CAROUSEL CSS 	
-============================================ -->	
-<link rel="stylesheet" href="${customerTemplateUrl}css/owl.carousel.css">
-
-<!-- OWL CAROUSEL THEME CSS 	
-============================================ -->	
-<link rel="stylesheet" href="${customerTemplateUrl}css/owl.theme.css">
 
 <!-- BOOTSTRAP CSS 
 ============================================ -->	
