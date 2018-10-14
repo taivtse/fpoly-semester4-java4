@@ -8,15 +8,6 @@
     <head>
         <title>User list</title>
         <%@include file="/common/admin/top-embed.jsp" %>
-        <style>
-            .product-small-item{
-                width: 80px!important;
-            }
-
-            .table > tbody > tr > td {
-                vertical-align: middle;
-            }
-        </style>
     </head>
     
     <body class="no-skin">
@@ -85,10 +76,10 @@
 
                                                     <td class="center">
                                                         <div class="hidden-sm hidden-xs btn-group">
-                                                            <!--                                                            <a class="btn btn-xs btn-info" href="/admin/user/update?id=">
-                                                                                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                                                                                        </a>-->
-
+                                                             <a class="btn btn-xs btn-info" href="/admin/user/update?userId=${user.id}">
+                                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                            </a>
+                                                            
                                                             <a class="btn btn-xs btn-danger" href="/admin/user/delete?userId=${user.id}">
                                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                             </a>

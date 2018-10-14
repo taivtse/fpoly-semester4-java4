@@ -6,7 +6,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><fmt:message key="label.admin.title" bundle="${lang}"/></title>
+        <title>Product list</title>
+        <%@include file="/common/admin/top-embed.jsp" %>
         <style>
             .product-small-item{
                 width: 80px!important;
@@ -17,39 +18,13 @@
             }
         </style>
     </head>
-    <body>
+    
+    <body class="no-skin">
+        <%@include file="/common/admin/navbar.jsp" %>
+        <%@include file="/common/admin/sidebar.jsp" %>
         <div class="main-content">
             <div class="main-content-inner">
-                <div class="breadcrumbs" id="breadcrumbs">
-                    <script type="text/javascript">
-                        try {
-                            ace.settings.check('breadcrumbs', 'fixed')
-                        } catch (e) {
-                        }
-                    </script>
-
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="ace-icon fa fa-home home-icon"></i>
-                            <a href="#">Home</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Tables</a>
-                        </li>
-                        <li class="active">Simple &amp; Dynamic</li>
-                    </ul><!-- /.breadcrumb -->
-
-                    <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
-                                <i class="ace-icon fa fa-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div><!-- /.nav-search -->
-                </div>
-
+                <%@include file="/common/admin/breadcrumb.jsp" %>
                 <div class="page-content">
                     <div class="row">
                         <div class="col-xs-12">
@@ -103,7 +78,7 @@
                                                     <td>${product.quantity}</td>
 
                                                     <td class="center">
-                                                        <img class="product-small-item" src="<c:url value='/resources/image/${product.imageUrl}'/>" />
+                                                        <img class="product-small-item" src="${imageRootUrl.concat(product.imageUrl)}" />
                                                     </td>
 
                                                     <td>
@@ -112,11 +87,11 @@
 
                                                     <td class="center">
                                                         <div class="hidden-sm hidden-xs btn-group">
-                                                            <a class="btn btn-xs btn-info" href="/admin/product/update?id=${product.id}">
+                                                            <a class="btn btn-xs btn-info" href="/admin/product/update?productId=${product.id}">
                                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                             </a>
 
-                                                            <a class="btn btn-xs btn-danger" href="/admin/product/delete?id=${product.id}">
+                                                            <a class="btn btn-xs btn-danger" href="/admin/product/delete?productId=${product.id}">
                                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                             </a>
                                                         </div>
@@ -133,5 +108,7 @@
                 </div><!-- /.page-content -->
             </div>
         </div>
+        <%@include file="/common/admin/footer.jsp" %>
+        <%@include file="/common/admin/bottom-embed.jsp" %>
     </body>
 </html>

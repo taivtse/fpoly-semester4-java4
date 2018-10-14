@@ -5,20 +5,22 @@
  */
 package poly.core.controller.admin;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import poly.core.common.CoreConstant;
 import poly.core.dao.impl.CategoryDaoImpl;
 import poly.core.dao.impl.ProductDaoImpl;
 import poly.core.persistence.entity.Category;
 import poly.core.persistence.entity.Product;
 import poly.core.util.FileUtil;
+import poly.web.common.WebConstant;
 
 /**
  *
@@ -27,28 +29,23 @@ import poly.core.util.FileUtil;
 @WebServlet(name = "ProductInsertController", urlPatterns = {"/admin/product/insert"})
 public class ProductInsertController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+//        Set breadcrumb
+        List<String> breadcrumb = new ArrayList<>();
+        breadcrumb.add("Sản phẩm");
+        breadcrumb.add("Thêm mới");
+        request.setAttribute("breadcrumb", breadcrumb);
+        request.getRequestDispatcher("/view/admin/product-insert.jsp").forward(request, response);
+    }
 
-        String action = request.getParameter("action");
-        if (action == null) {
-            request.getRequestDispatcher("/view/admin/product-insert.jsp").forward(request, response);
-            return;
-        }
-        
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
-        int categoryId = Integer.parseInt(request.getParameter("category"));
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
         int price = Integer.parseInt(request.getParameter("price"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String description = request.getParameter("description");
@@ -64,53 +61,26 @@ public class ProductInsertController extends HttpServlet {
         product.setQuantity(quantity);
         product.setDescription(description);
         product.setImageUrl(imageUrl);
-                
-        boolean isInserted = new ProductDaoImpl().insert(product);
-        if (isInserted) {
-            String uploadRootPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "image" + File.separator);
+        
+        try {
+            new ProductDaoImpl().insert(product);
+            
+//            Upload image
+            String uploadRootPath = request.getServletContext().getRealPath(CoreConstant.IMAGE_URL);
             boolean uploadedImage = new FileUtil().uploadFile(imageUrl, image, uploadRootPath);
             if (!uploadedImage) {
-                request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
+                request.setAttribute(WebConstant.MESSAGE_ERROR, "Thêm hình ảnh sản phẩm thất bại");
+                request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
+                return;
             }
             
             response.sendRedirect("/admin/product");
+        } catch (Exception e) {
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Thêm sản phẩm thất bại");
+            request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

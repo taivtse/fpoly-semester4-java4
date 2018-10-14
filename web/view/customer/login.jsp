@@ -1,23 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đăng nhập</title>
+        <%@include file="/common/customer/top-embed.jsp" %>
     </head>
     <body>
+        <%@include file="/common/customer/header.jsp" %>
         <section class="main-content-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <!-- BSTORE-BREADCRUMB START -->
-                        <div class="bstore-breadcrumb">
-                            <a href="index.html">HOMe</a>
-                            <span><i class="fa fa-caret-right"></i></span>
-                            <span>Sign in / Register</span>
-                        </div>
-                        <!-- BSTORE-BREADCRUMB END -->
+                        <%@include file="/common/customer/breadcrumb.jsp" %>
                     </div>
                 </div>
                 <div class="row">
@@ -71,5 +65,7 @@
                 </div>
             </div>
         </section>
+        <%@include file="/common/customer/footer.jsp" %>
+        <%@include file="/common/customer/bottom-embed.jsp" %>
     </body>
 </html>

@@ -1,8 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <!doctype html>
 <head>
-    <title><decorator:title default="Client page"></decorator:title></title>
+    <title>Trang chủ</title>
 </head>
 <body>
     <section class="main-content-section">

@@ -5,54 +5,18 @@
 <c:if test="${empty sessionScope.adminUser}">
     <c:redirect url = "/admin/login"/>
 </c:if>
-<c:url var="insertFormUrl" value="/admin/product/insert"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><fmt:message key="label.admin.title" bundle="${lang}"/></title>
-        <style>
-            .product-small-item{
-                width: 80px!important;
-            }
-
-            .table > tbody > tr > td {
-                vertical-align: middle;
-            }
-        </style>
+        <title>Insert product</title>
+        <%@include file="/common/admin/top-embed.jsp" %>
     </head>
-    <body>
+    <body class="no-skin">
+        <%@include file="/common/admin/navbar.jsp" %>
+        <%@include file="/common/admin/sidebar.jsp" %>
         <div class="main-content">
             <div class="main-content-inner">
-                <div class="breadcrumbs" id="breadcrumbs">
-                    <script type="text/javascript">
-                        try {
-                            ace.settings.check('breadcrumbs', 'fixed')
-                        } catch (e) {
-                        }
-                    </script>
-
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="ace-icon fa fa-home home-icon"></i>
-                            <a href="#">Home</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Sản phẩm</a>
-                        </li>
-                        <li class="active">Thêm mới</li>
-                    </ul><!-- /.breadcrumb -->
-
-                    <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
-                                <i class="ace-icon fa fa-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div><!-- /.nav-search -->
-                </div>
-
+                <%@include file="/common/admin/breadcrumb.jsp" %>
                 <div class="page-content">
                     <div class="row">
                         <div class="col-xs-12">
@@ -61,33 +25,33 @@
                             <div class="hr hr-18 dotted hr-double"></div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <form class="form-horizontal" role="form" action="${insertFormUrl}" method="POST" enctype="multipart/form-data">
+                                    <form class="form-horizontal" role="form" action="${productInsertFormUrl}" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Tên sản phẩm</label>
                                             <div class="col-sm-6">
-                                                <input type="text" name="name" class="col-xs-12">
+                                                <input required type="text" name="name" class="col-xs-12">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Giá bán</label>
                                             <div class="col-sm-6">
-                                                <input type="number" name="price" class="col-xs-12">
+                                                <input required type="number" name="price" class="col-xs-12">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Số lượng</label>
                                             <div class="col-sm-6">
-                                                <input type="number" name="quantity" class="col-xs-12">
+                                                <input required type="number" name="quantity" class="col-xs-12">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Danh mục</label>
                                             <div class="col-sm-6">
-                                                <select class="form-control" name="category">
-                                                    <%
+                                                <select class="form-control" name="categoryId" required>
+                                                    <%                                                        
                                                         List<Category> categorys = new CategoryDaoImpl().getAllChildCategory();
                                                     %>
                                                     <c:forEach var="category" items="<%=categorys%>">
@@ -100,7 +64,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Mô tả</label>
                                             <div class="col-sm-6">
-                                                <textarea name="description" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 100px;"></textarea>
+                                                <textarea required name="description" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 100px;"></textarea>
                                             </div>
                                         </div>
 
@@ -108,13 +72,13 @@
                                             <label class="col-sm-3 control-label">Hình ảnh</label>
                                             <div class="col-sm-6">
                                                 <img style="width: 150px; height: 150px; background-color: #ffffff" id="product-image">
-                                                <input type="file" name="image" id="image_url"/>
+                                                <input required type="file" name="image" id="image_url"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"></label>
                                             <div class="col-sm-6 text-right">
-                                                <button name="action" value="insert" type="submit" class="btn btn-sm btn-primary">Thêm sản phẩm</button>
+                                                <button type="submit" class="btn btn-sm btn-primary">Thêm sản phẩm</button>
                                             </div>
                                         </div>
                                     </form>
@@ -126,7 +90,8 @@
                 </div><!-- /.page-content -->
             </div>
         </div>
-    <content tag="bottom_javascript">
+        <%@include file="/common/admin/footer.jsp" %>
+        <%@include file="/common/admin/bottom-embed.jsp" %>
         <script type='text/javascript'>
             document.addEventListener('DOMContentLoaded', function () {
                 document.querySelector('#image_url').onchange = changeImageFile;
@@ -136,6 +101,5 @@
                 imageshow.src = URL.createObjectURL(event.target.files[0])
             }
         </script>
-    </content>                      
-</body>
+    </body>
 </html>

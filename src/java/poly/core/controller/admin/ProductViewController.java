@@ -6,6 +6,7 @@
 package poly.core.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import poly.core.dao.impl.CategoryDaoImpl;
 import poly.core.dao.impl.ProductDaoImpl;
 import poly.core.persistence.entity.Category;
 import poly.core.persistence.entity.Product;
+import poly.web.common.WebConstant;
 
 /**
  *
@@ -24,67 +26,48 @@ import poly.core.persistence.entity.Product;
 @WebServlet(name = "ProductVewController", urlPatterns = {"/admin/product"})
 public class ProductViewController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //        Set breadcrumb
+        List<String> breadcrumb = new ArrayList<>();
+        breadcrumb.add("Sản phẩm");
 
+        
         Integer categoryId = null;
         List<Product> productList = null;
         
         try {
-            if (request.getParameter("category") != null) {
-                categoryId = Integer.parseInt(request.getParameter("category"));
+            if (request.getParameter("categoryId") != null) {
+                categoryId = Integer.parseInt(request.getParameter("categoryId"));
             }
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/admin/error-404.jsp").forward(request, response);
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Mã danh mục không hợp lệ");
+            request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
+            return;
         }
 
         if (categoryId != null) {
             Category category = new CategoryDaoImpl().getById(categoryId);
+            
+//            Add item to breadcrumb
+            breadcrumb.add(category.getName());
+            
             productList = new ProductDaoImpl().getByProperties("category", category, null, null, null, null);
         } else {
             productList = new ProductDaoImpl().getAll();
         }
 
+        request.setAttribute("breadcrumb", breadcrumb);
         request.setAttribute("productList", productList);
         request.getRequestDispatcher("/view/admin/product-view.jsp").forward(request, response);
-
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

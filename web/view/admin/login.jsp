@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <title>Admin login</title>
-        <%@include file="/common/admin/css.jsp" %>
+        <%@include file="/common/admin/top-embed.jsp" %>
     </head>
 
     <body class="login-layout blur-login">

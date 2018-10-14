@@ -36,11 +36,11 @@ public class UserDeleteController extends HttpServlet {
             return;
         }
 
-        boolean isDeleted = new UserDaoImpl().deleteById(userId);
-        if (isDeleted) {
+        try {
+            new UserDaoImpl().deleteById(userId);
             response.sendRedirect("/admin/user");
-        } else {
-            request.setAttribute(WebConstant.MESSAGE_ERROR, "Quá trình xoá thất bại");
+        } catch (Exception e) {
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Xoá người dùng thất bại");
             request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
         }
     }

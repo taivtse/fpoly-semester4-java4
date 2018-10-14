@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <section class="company-facality">
     <div class="container">
         <div class="row">

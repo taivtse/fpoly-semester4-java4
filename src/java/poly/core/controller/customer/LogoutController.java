@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poly.core.controller.web;
+package poly.core.controller.customer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,16 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import poly.core.dao.impl.UserDaoImpl;
-import poly.core.persistence.entity.User;
-import poly.web.common.WebConstant;
 
 /**
  *
  * @author vothanhtai
  */
-@WebServlet(name = "LoginClientController", urlPatterns = {"/client/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/client/logout"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,25 +32,8 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("action") == null) {
-            request.getRequestDispatcher("/view/web/login.jsp").forward(request, response);
-            return;
-        }
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        try {
-            User user = new UserDaoImpl().getUserByUsernameAndPassword(username, password);
-            request.getSession().setAttribute("userClient", user);
-            response.sendRedirect("/client/home");
-            return;
-        } catch (NullPointerException ex) {
-            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
-            request.getRequestDispatcher("/view/web/login.jsp").forward(request, response);
-        }
-        request.getRequestDispatcher("/view/web/login.jsp").forward(request, response);
+        request.getSession().removeAttribute("userClient");
+        response.sendRedirect("/client/product");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

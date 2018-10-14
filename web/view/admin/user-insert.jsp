@@ -1,7 +1,3 @@
-<%@page import="poly.core.dao.impl.CategoryDaoImpl"%>
-<%@page import="java.util.List"%>
-<%@page import="poly.core.persistence.entity.Category"%>
-<%@include file="/common/taglib.jsp" %>
 <%@include file="/common/taglib.jsp" %>
 <c:if test="${empty sessionScope.adminUser}">
     <c:redirect url = "/admin/login"/>
@@ -9,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Update Product</title>
+        <title>Insert user</title>
         <%@include file="/common/admin/top-embed.jsp" %>
     </head>
     <body class="no-skin">
@@ -21,66 +17,69 @@
                 <div class="page-content">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 class="header smaller lighter blue" style="display: block;">Cập nhật thông tin sản phẩm</h3>
+                            <h3 class="header smaller lighter blue" style="display: block;">Thêm mới người dùng</h3>
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="hr hr-18 dotted hr-double"></div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <form class="form-horizontal" role="form" action="${productUpdateFormUrl}" method="POST" enctype="multipart/form-data">
-                                        <input type="hidden" name="productId" value="${product.id}" />
+                                    <form class="form-horizontal" role="form" action="${userInsertFormUrl}" method="POST">
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Tên sản phẩm</label>
+                                            <label class="col-sm-3 control-label">Tài khoản</label>
                                             <div class="col-sm-6">
-                                                <input required type="text" name="name" value="${product.name}" class="col-xs-12">
+                                                <input required type="text" name="username" class="col-xs-12">
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Giá bán</label>
+                                            <label class="col-sm-3 control-label">Mật khẩu</label>
                                             <div class="col-sm-6">
-                                                <input required type="number" name="price" value="${product.price}" class="col-xs-12">
+                                                <input required type="password" name="password" class="col-xs-12">
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Số lượng</label>
+                                            <label class="col-sm-3 control-label">Họ và tên</label>
                                             <div class="col-sm-6">
-                                                <input required type="number" name="quantity" value="${product.quantity}" class="col-xs-12">
+                                                <input required type="text" name="fullname" class="col-xs-12">
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Danh mục</label>
+                                            <label class="col-sm-3 control-label">Email</label>
                                             <div class="col-sm-6">
-                                                <select class="form-control" name="categoryId">
-                                                    <%                                                        
-                                                        List<Category> categorys = new CategoryDaoImpl().getAllChildCategory();
-                                                    %>
-                                                    <c:forEach var="category" items="<%=categorys%>">
-                                                        <option value="${category.id}" ${category.id eq product.category.id ? "selected" : ""}>${category.name}</option>
+                                                <input required type="email" name="email" class="col-xs-12">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Số điện thoại</label>
+                                            <div class="col-sm-6">
+                                                <input required type="tel" name="phone" pattern="^0\d{9,13}" class="col-xs-12">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Địa chỉ</label>
+                                            <div class="col-sm-6">
+                                                <input required type="text" name="address" class="col-xs-12">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Vai trò</label>
+                                            <div class="col-sm-6">
+                                                <select class="form-control" name="roleId" required>
+                                                    <c:forEach var="role" items="<%=roles%>">
+                                                        <option value="${role.id}">${role.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Mô tả</label>
-                                            <div class="col-sm-6">
-                                                <textarea required name="description" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 100px;">${product.description}</textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Hình ảnh</label>
-                                            <div class="col-sm-6">
-                                                <img src="${imageRootUrl.concat(product.imageUrl)}" style="width: 150px; height: 150px; background-color: #ffffff" id="product-image">
-                                                <input type="file" name="image" id="image_url"/>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"></label>
                                             <div class="col-sm-6 text-right">
-                                                <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
+                                                <button type="submit" class="btn btn-sm btn-primary">Thêm người dùng</button>
                                             </div>
                                         </div>
                                     </form>
@@ -102,6 +101,6 @@
                 var imageshow = document.querySelector('#product-image');
                 imageshow.src = URL.createObjectURL(event.target.files[0])
             }
-        </script>                  
+        </script>
     </body>
 </html>
