@@ -52,12 +52,12 @@
                             <li>Xin chào</li>
                             <c:choose>
                                 <c:when test="${empty sessionScope.customerUser}">
-                                    <li><a href="/login">Đăng nhập</a></li>
-                                    <li><a href="/register">Đăng ký</a></li>
+                                    <li><a href="${customerLoginFormUrl}">Đăng nhập</a></li>
+                                    <li><a href="${customerRegisterFormUrl}">Đăng ký</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><a href="/user/update">${sessionScope.customerUser.fullname}</a></li>
-                                    <li><a href="/logout">Đăng xuất</a></li>
+                                    <li><a href="${customerUpdateInfoFormUrl}">${sessionScope.customerUser.fullname}</a></li>
+                                    <li><a href="${customerLogoutFormUrl}">Đăng xuất</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </ul>									

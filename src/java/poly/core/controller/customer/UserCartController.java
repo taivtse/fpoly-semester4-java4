@@ -6,6 +6,7 @@
 package poly.core.controller.customer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "LogoutCustomerController", urlPatterns = {"/user/logout"})
-public class LogoutController extends HttpServlet {
-
+@WebServlet(name = "UserCartCustomerController", urlPatterns = {"/user/cart"})
+public class UserCartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute("customerUser");
-        response.sendRedirect("/");
     }
 
     @Override

@@ -294,8 +294,8 @@
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                             <img class="nav-user-photo" src="<c:url value='/template/admin/assets/avatars/user.jpg'/>" alt="Jason's Photo">
                             <span class="user-info">
-                                <small>Welcome,</small>
-                                Jason
+                                <small>Xin chào,</small>
+                                ${sessionScope.adminUser.fullname}
                             </span>
 
                             <i class="ace-icon fa fa-caret-down"></i>
@@ -305,23 +305,23 @@
                             <li>
                                 <a href="#">
                                     <i class="ace-icon fa fa-cog"></i>
-                                    <fmt:message key="label.setting" bundle="${lang}"/>
+                                    Cài đặt
                                 </a>
                             </li>
 
                             <li>
                                 <a href="profile.html">
                                     <i class="ace-icon fa fa-user"></i>
-                                    <fmt:message key="label.profile" bundle="${lang}"/>
+                                    Trang cá nhân
                                 </a>
                             </li>
 
                             <li class="divider"></li>
 
                             <li>
-                                <a href="#">
+                                <a href="${adminLogoutFormUrl}">
                                     <i class="ace-icon fa fa-power-off"></i>
-                                    <fmt:message key="label.logout" bundle="${lang}"/>
+                                    Đăng xuất
                                 </a>
                             </li>
                         </ul>

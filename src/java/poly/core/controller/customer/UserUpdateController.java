@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import poly.core.dao.impl.RoleDaoImpl;
 import poly.core.dao.impl.UserDaoImpl;
 import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
