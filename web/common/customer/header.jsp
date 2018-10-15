@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 <%@page import="poly.core.dao.impl.CartDetailDaoImpl"%>
 <%@page import="poly.core.persistence.entity.CartDetail"%>
@@ -119,36 +120,47 @@
                             <c:if test="${not empty sessionScope.customerUser}">
                                 <%
                                     User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
-                                    Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
-                                    List<CartDetail> cartItems = new CartDetailDaoImpl().getCartItems(cart);
+                                    Cart cart = null;
+                                    try {
+                                        cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
+                                    } catch (NullPointerException ex) {
+//                                        catch if customer not have cart
+                                    }
                                 %>
-                                <span class="ajax-cart-quantity"><%=cartItems.size()%></span>
+                                <c:set var = "cart" value = "<%=cart%>"/>
+
+                                <span class="ajax-cart-quantity">
+                                    <c:choose>
+                                        <c:when test="${not empty cart}">
+                                            <%=cart.getCartDetails().size()%>
+                                        </c:when>
+                                        <c:otherwise>
+                                            0
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </c:if>
                         </a>
-                        <c:forEach var="item" items="<%=cartItems%>">
+                        <c:if test="${not empty sessionScope.customerUser and not empty cart}">
                             <div class="shipping-cart-overly">
-                                <div class="shipping-item">
-                                    <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
-                                    <div class="shipping-item-image">
-                                        <a href="#"><img src="${imageRootUrl}img/shopping-image.jpg" alt="shopping image"></a>
+                                <c:forEach var="cartDetail" items="${cart.cartDetails}">
+                                    <div class="shipping-item">
+                                        <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
+                                        <div class="shipping-item-image">
+                                            <a href="#"><img src="${imageRootUrl.concat(cartDetail.product.imageUrl)}" alt="shopping image"></a>
+                                        </div>
+                                        <div class="shipping-item-text">
+                                            <span><a href="/product/detail?productId=${cartDetail.product.id}">${cartDetail.product.name}</a></span>
+                                            <p><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></p>
+                                        </div>
                                     </div>
-                                    <div class="shipping-item-text">
-                                        <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Watch</a></span>
-                                        <span class="pro-quality"><a href="#">S,Black</a></span>
-                                        <p>$22.95</p>
-                                    </div>
-                                </div>
-                                <div class="shipping-total-bill">
-                                    <div class="total-shipping-prices">
-                                        <span class="shipping-total">$24.95</span>
-                                        <span>Total</span>
-                                    </div>										
-                                </div>
+                                </c:forEach>
                                 <div class="shipping-checkout-btn">
                                     <a href="${customerCartUrl}">Kiểm tra <i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
-                        </c:forEach>
+
+                        </c:if>
                     </div>
                 </div>
             </div>	

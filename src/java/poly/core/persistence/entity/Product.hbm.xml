@@ -26,5 +26,11 @@
         <property name="imageUrl" type="string">
             <column name="image_url" not-null="true" />
         </property>
+        <set name="cartDetails" table="cart_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="product_id" not-null="true" />
+            </key>
+            <one-to-many class="poly.core.persistence.entity.CartDetail" />
+        </set>
     </class>
 </hibernate-mapping>

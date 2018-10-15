@@ -43,7 +43,7 @@
                                         </ul>
                                     </div>
                                     <div class="single-product-price">
-                                        <h2>${product.price} VND</h2>
+                                        <h2><fmt:formatNumber value = "${product.price}" type = "currency"/></h2>
                                     </div>
                                     <div class="single-product-desc">
                                         <p>${product.description}</p>

@@ -14,8 +14,8 @@
         <property name="productQuantity" type="int">
             <column name="product_quantity" not-null="true" />
         </property>
-        <property name="productId" type="int">
+        <many-to-one name="product" class="poly.core.persistence.entity.Product" fetch="join">
             <column name="product_id" not-null="true" />
-        </property>
+        </many-to-one>
     </class>
 </hibernate-mapping>

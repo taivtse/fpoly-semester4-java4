@@ -35,67 +35,64 @@
                                 <!-- TABLE HEADER START -->
                                 <thead>
                                     <tr>
-                                        <th class="cart-product">Hình ảnh</th>
-                                        <th class="cart-description">Tên sản phẩm</th>
-                                        <th class="cart-avail text-center">Availability</th>
-                                        <th class="cart-unit text-right">Unit price</th>
-                                        <th class="cart_quantity text-center">Qty</th>
-                                        <th class="cart-delete">&nbsp;</th>
-                                        <th class="cart-total text-right">Total</th>
+                                        <th class="cart-product text-center">Hình ảnh</th>
+                                        <th class="cart-description text-center">Tên sản phẩm</th>
+                                        <th class="cart-avail text-center">Số lượng trong kho</th>
+                                        <th class="cart-unit text-center">Giá tiền</th>
+                                        <th class="cart_quantity text-center">Số lượng mua</th>
+                                        <th class="cart-delete text-center">Xoá</th>
+                                        <th class="cart-total text-center">Tổng cộng</th>
                                     </tr>
                                 </thead>
                                 <!-- TABLE HEADER END -->
                                 <!-- TABLE BODY START -->
                                 <tbody>	
-                                    <!-- SINGLE CART_ITEM START -->
-                                    <tr>
-                                        <td class="cart-product">
-                                            <a href="#"><img alt="Blouse" src="${customerTemplateUrl}img/product/cart-image1.jpg"></a>
-                                        </td>
-                                        <td class="cart-description">
-                                            <p class="product-name"><a href="#">Faded Short Sleeves T-shirt</a></p>
-                                            <small>SKU : demo_1</small>
-                                            <small><a href="#">Size : S, Color : Orange</a></small>
-                                        </td>
-                                        <td class="cart-avail"><span class="label label-success">In stock</span></td>
-                                        <td class="cart-unit">
-                                            <ul class="price text-right">
-                                                <li class="price">$16.51</li>
-                                            </ul>
-                                        </td>
-                                        <td class="cart_quantity text-center">
-                                            <div class="cart-plus-minus-button">
-                                                <input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-                                        </td>
-                                        <td class="cart-delete text-center">
-                                            <span>
-                                                <a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-                                            </span>
-                                        </td>
-                                        <td class="cart-total">
-                                            <span class="price">$16.51</span>
-                                        </td>
-                                    </tr>
-                                    <!-- SINGLE CART_ITEM END -->
-                                    <!-- SINGLE CART_ITEM START -->
-
-                                    <!-- SINGLE CART_ITEM END -->
-                                    <!-- SINGLE CART_ITEM START -->
-
-                                    <!-- SINGLE CART_ITEM END -->
+                                    <c:if test="${not empty cart}">
+                                        <c:forEach var="cartDetail" items="${cart.cartDetails}">
+                                            <!-- SINGLE CART_ITEM START -->
+                                            <tr>
+                                                <td class="cart-product">
+                                                    <a href="/product/detail?productId=${cartDetail.product.id}">
+                                                        <img src="${imageRootUrl.concat(cartDetail.product.imageUrl)}">
+                                                    </a>
+                                                </td>
+                                                <td class="cart-description">
+                                                    <p class="product-name">
+                                                        <a href="/product/detail?productId=${cartDetail.product.id}">${cartDetail.product.name}</a>
+                                                    </p>
+                                                </td>
+                                                <td class="cart-avail"><span class="label label-success">${cartDetail.product.quantity} sản phẩm</span></td>
+                                                <td class="cart-unit">
+                                                    <ul class="price text-right">
+                                                        <li class="price"><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></li>
+                                                    </ul>
+                                                </td>
+                                                <td class="cart_quantity text-center">
+                                                    <div class="cart-plus-minus-button">
+                                                        <input class="cart-plus-minus" type="text" name="qtybutton" value="${cartDetail.productQuantity}">
+                                                        </td>
+                                                        <td class="cart-delete text-center">
+                                                            <span>
+                                                                <a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                                            </span>
+                                                        </td>
+                                                        <td class="cart-total">
+                                                            <span class="price"><fmt:formatNumber value = "${cartDetail.product.price * cartDetail.productQuantity}" type = "currency"/></span>
+                                                        </td>
+                                            </tr>
+                                            <!-- SINGLE CART_ITEM END -->
+                                        </c:forEach>
+                                    </c:if>
                                 </tbody>
                                 <!-- TABLE BODY END -->
                                 <!-- TABLE FOOTER START -->
-                                <tfoot>										
-
-
-
+                                <tfoot>
                                     <tr>
                                         <td class="cart_voucher" colspan="3" rowspan="4"></td><td class="total-price-container text-right" colspan="3">
                                             <span>Total</span>
                                         </td>
                                         <td id="total-price-container" class="price" colspan="1">
-                                            <span id="total-price">$76.46</span>
+                                            <span id="total-price">9798</span>
                                         </td>
                                     </tr>
                                 </tfoot>		
@@ -111,7 +108,9 @@
                         <!-- RETURNE-CONTINUE-SHOP START -->
                         <div class="returne-continue-shop">
                             <a href="/" class="continueshoping"><i class="fa fa-chevron-left"></i>Tiếp tục mua hàng</a>
-                            <a href="checkout-signin.html" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
+                            <c:if test="${not empty cart}">
+                                <a href="checkout-signin.html" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
+                                </c:if>
                         </div>	
                         <!-- RETURNE-CONTINUE-SHOP END -->				
                     </div>

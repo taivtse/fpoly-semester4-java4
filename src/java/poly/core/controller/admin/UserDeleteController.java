@@ -45,7 +45,7 @@ public class UserDeleteController extends HttpServlet {
                 request.setAttribute(WebConstant.MESSAGE_ERROR, "Không được tự xoá chính mình");
                 request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
                 return;
-            }else if (currentSessionCustomerUser.getId() == userId) {
+            }else if (currentSessionCustomerUser != null && currentSessionCustomerUser.getId() == userId) {
                 request.getSession().removeAttribute("customerUser");
             }
 

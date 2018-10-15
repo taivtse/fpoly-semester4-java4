@@ -895,6 +895,7 @@ span.cross-icon:hover{
 }
 .shipping-item-image a{
     display:block;
+    width: 80px;
 }
 .shipping-item-text{}
 .shipping-item-text span{
@@ -3677,28 +3678,26 @@ ul.step li.step-done span a{
 
 }
 #cart-summary tbody td.cart-unit {
-    width:12.2%;
+    width: 12%;
 }
 #cart-summary tbody td.cart-total {
-    width:16.5%;
+    width: 12%;
 }
 .table tbody > tr > td {
     vertical-align: middle;
 }
 #cart-summary tbody td.cart-avail {
-    width: 8%;
+    width: 14%;
 }
 .text-right, #cart-summary tbody td.cart-unit, #cart-summary tbody td.cart-total {
     text-align: right;
 }
 .table tbody > tr > td.cart_quantity {
-    width: 70px;
-}
-.table tbody > tr > td.cart_quantity {
-    width: 70px;
+    padding: 7px 20px 9px!important;
+    width:10%;
 }
 #cart-summary tbody td.cart-delete {
-    width: 1%;
+    width: 7%;
 }
 #cart-summary tbody td {
     padding: 7px 8px 9px;

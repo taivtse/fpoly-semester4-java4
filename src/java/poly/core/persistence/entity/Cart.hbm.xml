@@ -17,7 +17,7 @@
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>
-        <set name="cartDetails" table="cart_detail" inverse="true" lazy="true" fetch="select">
+        <set name="cartDetails" table="cart_detail" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="cart_id" not-null="true" />
             </key>
