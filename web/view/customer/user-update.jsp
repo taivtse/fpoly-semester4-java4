@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Đăng ký</title>
+        <title>Cập nhật thông tin</title>
         <%@include file="/common/customer/top-embed.jsp" %>
     </head>
     <body>
@@ -32,7 +32,7 @@
                                     </c:if>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label for="firstname">Tài khoản<sup>*</sup></label>
-                                        <input required type="text" value="${sessionScope.customerUser.name}" name="username"  class="form-control input-feild">
+                                        <input required type="text" value="${sessionScope.customerUser.username}" name="username" readonly  class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label for="password">Mật khẩu <sup>*</sup></label>
@@ -44,11 +44,11 @@
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Email<sup>*</sup></label>
-                                        <input required type="text" value="${sessionScope.customerUser.email}" name="email" class="form-control input-feild">
+                                        <input required type="email" value="${sessionScope.customerUser.email}" name="email" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Số điện thoại <sup>*</sup></label>
-                                        <input required type="text" value="${sessionScope.customerUser.phone}" name="phone" class="form-control input-feild">
+                                        <input required type="tel"  pattern="^0\d{9,13}" value="${sessionScope.customerUser.phone}" name="phone" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Địa chỉ <sup>*</sup></label>

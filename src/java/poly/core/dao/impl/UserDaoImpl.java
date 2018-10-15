@@ -26,5 +26,21 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao{
         }
         return entity;
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User entity = null;
+        Session session = this.getSession();
+        try {
+            Criteria cr = session.createCriteria(this.getPersistenceClass());
+            cr.add(Restrictions.eq("username", username));
+            entity = (User) cr.uniqueResult();
+        } catch (HibernateException ex) {
+            throw ex;
+        }finally{
+            session.close();
+        }
+        return entity;
+    }
     
 }

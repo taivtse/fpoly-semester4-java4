@@ -15,4 +15,4 @@
 <c:url value="/login" var="customerLoginFormUrl" />
 
 <c:url value="/register" var="customerRegisterFormUrl" />
-<c:url value="/register" var="customerUpdateInfoFormUrl" />
+<c:url value="/user/update" var="customerUpdateInfoFormUrl" />

@@ -46,8 +46,7 @@ public class UserDeleteController extends HttpServlet {
                 request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
                 return;
             }else if (currentSessionCustomerUser.getId() == userId) {
-                response.sendRedirect("/logout");
-                return;
+                request.getSession().removeAttribute("customerUser");
             }
 
             new UserDaoImpl().deleteById(userId);

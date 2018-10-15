@@ -56,7 +56,7 @@
                                     <li><a href="/register">Đăng ký</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><a href="">${sessionScope.customerUser.fullname}</a></li>
+                                    <li><a href="/user/update">${sessionScope.customerUser.fullname}</a></li>
                                     <li><a href="/logout">Đăng xuất</a></li>
                                 </c:otherwise>
                             </c:choose>

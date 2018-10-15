@@ -24,7 +24,7 @@ import poly.web.common.WebConstant;
  */
 @WebServlet(name = "RegisterCustomerController", urlPatterns = {"/register"})
 public class UserRegisterController extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,23 +32,31 @@ public class UserRegisterController extends HttpServlet {
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Đăng ký tài khoản");
         request.setAttribute("breadcrumb", breadcrumb);
-        
+
         request.getRequestDispatcher("/view/customer/user-register.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        TODO: check null and check duplicate usernme
-        
-        
+        request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String fullname = request.getParameter("fullname");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+
+//        Check duplicate username
+        if (new UserDaoImpl().getUserByUsername(username) != null) {
+            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
+            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Username đã tồn tại");
+            request.getRequestDispatcher("/view/customer/user-register.jsp").forward(request, response);
+            return;
+        }
         
+//        TODO: check any field is empty
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -57,7 +65,7 @@ public class UserRegisterController extends HttpServlet {
         user.setPhone(phone);
         user.setEmail(email);
         user.setRole(new RoleDaoImpl().getById(2));
-        
+
         try {
             new UserDaoImpl().insert(user);
             request.getSession().setAttribute("customerUser", user);
@@ -65,7 +73,7 @@ public class UserRegisterController extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
             request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Đăng ký tài khoản thất bại");
-            request.getRequestDispatcher("/view/customer/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/customer/user-register.jsp").forward(request, response);
         }
     }
 

@@ -29,27 +29,27 @@
                                     </c:if>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label for="firstname">Tài khoản<sup>*</sup></label>
-                                        <input required type="text" value="" name="username"  class="form-control input-feild">
+                                        <input required type="text" value="${param.username}" name="username"  class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label for="password">Mật khẩu <sup>*</sup></label>
-                                        <input required type="password" value="" name="password" class="form-control input-feild">
+                                        <input required type="password" value="${param.password}" name="password" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Họ và tên <sup>*</sup></label>
-                                        <input required type="text" value="" name="fullname" class="form-control input-feild">
+                                        <input required type="text" value="${param.fullname}" name="fullname" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Email<sup>*</sup></label>
-                                        <input required type="text" value="" name="email" class="form-control input-feild">
+                                        <input required type="email" value="${param.email}" name="email" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Số điện thoại <sup>*</sup></label>
-                                        <input required type="text" value="" name="phone" class="form-control input-feild">
+                                        <input required type="tel" pattern="^0\d{9,13}" value="${param.phone}" name="phone" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group p-info-group">
                                         <label >Địa chỉ <sup>*</sup></label>
-                                        <input required type="text" value="" name="address" class="form-control input-feild">
+                                        <input required type="text" value="${param.address}" name="address" class="form-control input-feild">
                                     </div>
                                     <div class="submit-button p-info-submit-button">
                                         <button type="submit" name="action" value="register" class="btn main-btn padding-2">
