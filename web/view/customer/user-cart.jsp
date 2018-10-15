@@ -1,4 +1,7 @@
 <%@include file="/common/taglib.jsp" %>
+<c:if test="${empty sessionScope.customerUser}">
+    <c:redirect url = "${customerLoginFormUrl}"/>
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +20,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- SHOPPING-CART SUMMARY START -->
-                        <h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: 2 products</span></h2>
+                        <h2 class="page-title">Thông tin giỏ hàng:  <span class="shop-pro-item">Giỏ hàng của bạn có: 2 sản phẩm</span></h2>
                         <!-- SHOPPING-CART SUMMARY END -->
                     </div>	
 
@@ -32,8 +35,8 @@
                                 <!-- TABLE HEADER START -->
                                 <thead>
                                     <tr>
-                                        <th class="cart-product">Product</th>
-                                        <th class="cart-description">Description</th>
+                                        <th class="cart-product">Hình ảnh</th>
+                                        <th class="cart-description">Tên sản phẩm</th>
                                         <th class="cart-avail text-center">Availability</th>
                                         <th class="cart-unit text-right">Unit price</th>
                                         <th class="cart_quantity text-center">Qty</th>
@@ -47,7 +50,7 @@
                                     <!-- SINGLE CART_ITEM START -->
                                     <tr>
                                         <td class="cart-product">
-                                            <a href="#"><img alt="Blouse" src="img/product/cart-image1.jpg"></a>
+                                            <a href="#"><img alt="Blouse" src="${customerTemplateUrl}img/product/cart-image1.jpg"></a>
                                         </td>
                                         <td class="cart-description">
                                             <p class="product-name"><a href="#">Faded Short Sleeves T-shirt</a></p>
@@ -63,7 +66,6 @@
                                         <td class="cart_quantity text-center">
                                             <div class="cart-plus-minus-button">
                                                 <input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-                                                <div class="dec qtybutton">-</div><div class="inc qtybutton">+</div></div>
                                         </td>
                                         <td class="cart-delete text-center">
                                             <span>
@@ -108,10 +110,10 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- RETURNE-CONTINUE-SHOP START -->
                         <div class="returne-continue-shop">
-                            <a href="index.html" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
-                            <a href="checkout-signin.html" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
+                            <a href="/" class="continueshoping"><i class="fa fa-chevron-left"></i>Tiếp tục mua hàng</a>
+                            <a href="checkout-signin.html" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
                         </div>	
-                        <!-- RETURNE-CONTINUE-SHOP END -->						
+                        <!-- RETURNE-CONTINUE-SHOP END -->				
                     </div>
                 </div>
             </div>

@@ -7,11 +7,12 @@ package poly.core.dao;
 
 import poly.core.data.dao.GenericDao;
 import poly.core.persistence.entity.Cart;
+import poly.core.persistence.entity.User;
 
 /**
  *
  * @author vothanhtai
  */
 public interface CartDao extends GenericDao<Integer, Cart>{
-    
+    public Cart getCurrentCartByUser(User user);
 }

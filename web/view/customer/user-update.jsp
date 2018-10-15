@@ -1,6 +1,6 @@
 <%@include file="/common/taglib.jsp" %>
 <c:if test="${empty sessionScope.customerUser}">
-    <c:redirect url = "/login"/>
+    <c:redirect url = "${customerLoginFormUrl}"/>
 </c:if>
 <!DOCTYPE html>
 <html>

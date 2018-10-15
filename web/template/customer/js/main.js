@@ -225,7 +225,7 @@ $(document).ready(function(){
 			var newVal = parseFloat(oldValue) - 1;
 			} else {
 			newVal = 0;
-		  }
+                    }
 		  }
 		$button.parent().find("input").val(newVal);
 	  });

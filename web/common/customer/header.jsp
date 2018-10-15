@@ -1,7 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="poly.core.dao.impl.CartDetailDaoImpl"%>
+<%@page import="poly.core.persistence.entity.CartDetail"%>
+<%@page import="poly.core.dao.impl.CartDaoImpl"%>
+<%@page import="poly.core.persistence.entity.Cart"%>
 <%@page import="poly.core.persistence.entity.User"%>
 <%@page import="poly.core.dao.impl.CategoryDaoImpl"%>
-<%@page import="java.util.List"%>
-<%@page import="poly.core.persistence.entity.Category"%>
 <%@page import="poly.core.persistence.entity.Category"%>
 <div class="header-top">
     <div class="container">
@@ -110,48 +113,42 @@
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
                 <div class="shopping-cart-out pull-right">
                     <div class="shopping-cart">
-                        <a class="shop-link" href="cart.html" title="View my shopping cart">
+                        <a class="shop-link" href="${customerCartUrl}">
                             <i class="fa fa-shopping-cart cart-icon"></i>
-                            <b>My Cart</b>
-                            <span class="ajax-cart-quantity">2</span>
+                            <b>Giỏ hàng</b>
+                            <c:if test="${not empty sessionScope.customerUser}">
+                                <%
+                                    User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
+                                    Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
+                                    List<CartDetail> cartItems = new CartDetailDaoImpl().getCartItems(cart);
+                                %>
+                                <span class="ajax-cart-quantity"><%=cartItems.size()%></span>
+                            </c:if>
                         </a>
-                        <div class="shipping-cart-overly">
-                            <div class="shipping-item">
-                                <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
-                                <div class="shipping-item-image">
-                                    <a href="#"><img src="${customerTemplateUrl}img/shopping-image.jpg" alt="shopping image"></a>
+                        <c:forEach var="item" items="<%=cartItems%>">
+                            <div class="shipping-cart-overly">
+                                <div class="shipping-item">
+                                    <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
+                                    <div class="shipping-item-image">
+                                        <a href="#"><img src="${imageRootUrl}img/shopping-image.jpg" alt="shopping image"></a>
+                                    </div>
+                                    <div class="shipping-item-text">
+                                        <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Watch</a></span>
+                                        <span class="pro-quality"><a href="#">S,Black</a></span>
+                                        <p>$22.95</p>
+                                    </div>
                                 </div>
-                                <div class="shipping-item-text">
-                                    <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Watch</a></span>
-                                    <span class="pro-quality"><a href="#">S,Black</a></span>
-                                    <p>$22.95</p>
+                                <div class="shipping-total-bill">
+                                    <div class="total-shipping-prices">
+                                        <span class="shipping-total">$24.95</span>
+                                        <span>Total</span>
+                                    </div>										
+                                </div>
+                                <div class="shipping-checkout-btn">
+                                    <a href="${customerCartUrl}">Kiểm tra <i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
-                            <div class="shipping-item">
-                                <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
-                                <div class="shipping-item-image">
-                                    <a href="#"><img src="${customerTemplateUrl}img/shopping-image2.jpg" alt="shopping image"></a>
-                                </div>
-                                <div class="shipping-item-text">
-                                    <span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Women Bag</a></span>
-                                    <span class="pro-quality"><a href="#">S,Gary</a></span>
-                                    <p>$19.95</p>
-                                </div>
-                            </div>
-                            <div class="shipping-total-bill">
-                                <div class="cart-prices">
-                                    <span class="shipping-cost">$2.00</span>
-                                    <span>Shipping</span>
-                                </div>
-                                <div class="total-shipping-prices">
-                                    <span class="shipping-total">$24.95</span>
-                                    <span>Total</span>
-                                </div>										
-                            </div>
-                            <div class="shipping-checkout-btn">
-                                <a href="checkout.html">Check out <i class="fa fa-chevron-right"></i></a>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>	
@@ -162,9 +159,9 @@
                     <nav>
                         <ul class="list-inline mega-menu">
                             <li><a href="/">Trang chủ</a></li>
-                            <%
-                                List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
-                                for (Category root : rootCategory) {%>
+                                <%
+                                    List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
+                                    for (Category root : rootCategory) {%>
                             <li>
                                 <a href=""><%=root.getName()%></a>
                                 <!-- DRODOWN-MEGA-MENU START -->
@@ -175,7 +172,7 @@
                                     <div class="left-mega col-xs-6">
                                         <div class="mega-menu-list">
                                             <%
-                                                for (int i = 0; i < childCategory.size() / 2; i ++) {%>
+                                                for (int i = 0; i < childCategory.size() / 2; i++) {%>
                                             <ul>
                                                 <li><a href="/product?categoryId=<%=childCategory.get(i).getId()%>"><%=childCategory.get(i).getName()%></a></li>
                                             </ul>
@@ -186,7 +183,7 @@
                                     <div class="right-mega col-xs-6">
                                         <div class="mega-menu-list">
                                             <%
-                                                for (int i = childCategory.size() / 2; i < childCategory.size(); i ++) {%>
+                                                for (int i = childCategory.size() / 2; i < childCategory.size(); i++) {%>
                                             <ul>
                                                 <li><a href="/product?categoryId=<%=childCategory.get(i).getId()%>"><%=childCategory.get(i).getName()%></a></li>
                                             </ul>

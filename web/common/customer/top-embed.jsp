@@ -2,6 +2,10 @@
 ============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="${customerTemplateUrl}img/favicon.png">
 
+<!-- Google fonts
+============================================ -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
 <!-- animate CSS
 ============================================ -->
 <link rel="stylesheet" href="${customerTemplateUrl}css/animate.css">				
