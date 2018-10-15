@@ -29,11 +29,11 @@
                                     </c:if>
                                     <div class="form-group primary-form-group">
                                         <label for="loginemail">Tài khoản</label>
-                                        <input required type="text" value="" name="username" id="loginemail" class="form-control input-feild">
+                                        <input required type="text" value="${param.username}" name="username" id="loginemail" class="form-control input-feild">
                                     </div>
                                     <div class="form-group primary-form-group">
                                         <label for="password">Mật khẩu</label>
-                                        <input required type="password" value="" name="password" id="password" class="form-control input-feild">
+                                        <input required type="password" value="${param.password}" name="password" id="password" class="form-control input-feild">
                                     </div>
                                     <div class="forget-password">
                                         <p><a href="#">Quên mật khẩu?</a></p>

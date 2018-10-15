@@ -5,6 +5,7 @@
  */
 package poly.core.dao;
 
+import java.util.List;
 import poly.core.data.dao.GenericDao;
 import poly.core.persistence.entity.Product;
 
@@ -13,5 +14,5 @@ import poly.core.persistence.entity.Product;
  * @author vothanhtai
  */
 public interface ProductDao  extends GenericDao<Integer, Product>{
-    
+    public List<Product> getRelated(Product product, int count);
 }

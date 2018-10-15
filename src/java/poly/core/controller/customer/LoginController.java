@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Đăng nhập");
         request.setAttribute("breadcrumb", breadcrumb);
-        
+
         request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);
     }
 
@@ -46,10 +46,15 @@ public class LoginController extends HttpServlet {
             if (user == null) {
                 throw new NullPointerException();
             }
-            
+
             request.getSession().setAttribute("customerUser", user);
             response.sendRedirect("/");
         } catch (NullPointerException ex) {
+            //        Set breadcrumb
+            List<String> breadcrumb = new ArrayList<>();
+            breadcrumb.add("Đăng nhập");
+            request.setAttribute("breadcrumb", breadcrumb);
+
             request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
             request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tài khoản hoặc mật khẩu không hợp lệ");
             request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);

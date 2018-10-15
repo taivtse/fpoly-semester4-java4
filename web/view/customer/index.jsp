@@ -113,171 +113,6 @@
                             </ul>
                         </div>
                         <!-- SINGLE SIDEBAR PRICE END -->
-                        <!-- SINGLE SIDEBAR SIZE START -->
-                        <div class="product-single-sidebar">
-                            <span class="sidebar-title">Size</span>
-                            <ul>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="Size">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">S<span> (10)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="Size">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">m<span> (10)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="Size">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">l<span> (10)</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- SINGLE SIDEBAR SIZE END -->
-                        <!-- SINGLE SIDEBAR COLOR START -->
-                        <div class="product-single-sidebar">
-                            <span class="sidebar-title">Color</span>
-                            <ul class="product-color-var">
-                                <li>
-                                    <i class="fa fa-square color-beige"></i>
-                                    <a href="#">Beige<span> (1)</span></a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-square color-white"></i>
-                                    <a href="#">white<span> (2)</span></a>
-                                </li>	
-                                <li>
-                                    <i class="fa fa-square color-black"></i>
-                                    <a href="#">black<span> (2)</span></a>
-                                </li>									
-                                <li>
-                                    <i class="fa fa-square color-orange"></i>
-                                    <a href="#">orange<span> (5)</span></a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-square color-blue"></i>
-                                    <a href="#">blue<span> (8)</span></a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-square color-green"></i>
-                                    <a href="#">green<span> (3)</span></a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-square color-yellow"></i>
-                                    <a href="#">yellow<span> (4)</span></a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-square color-pink"></i>
-                                    <a href="#">pink<span> (6)</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- SINGLE SIDEBAR COLOR END -->
-                        <!-- SINGLE SIDEBAR COMPOSITIONS START -->
-                        <div class="product-single-sidebar">
-                            <span class="sidebar-title">Compositions</span>
-                            <ul>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="compositions">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Cotton<span>(8)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="compositions">
-                                        <span></span>
-                                    </label>
-                                    <a href="#"> Polyester<span>(3)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="compositions">
-                                        <span></span>
-                                    </label>
-                                    <a href="#"> Viscose<span>(2)</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- SINGLE SIDEBAR COMPOSITIONS END -->
-                        <!-- SINGLE SIDEBAR STYLES START -->
-                        <div class="product-single-sidebar">
-                            <span class="sidebar-title">Styles</span>
-                            <ul>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="styles">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Casual<span>(5)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="styles">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Dressy<span>(1)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="styles">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Girly<span>(7)</span></a>
-                                </li>
-                            </ul>
-                        </div>	
-                        <!-- SINGLE SIDEBAR STYLES END -->
-                        <!-- SINGLE SIDEBAR PROPERTIES START -->
-                        <div class="product-single-sidebar">
-                            <span class="sidebar-title">Properties</span>
-                            <ul>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="properties">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Colorful Dress<span>(4)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="properties">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Maxi Dress <span>(1)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="properties">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Midi Dress<span>(2)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="properties">
-                                        <span></span>
-                                    </label>
-                                    <a href="#">Short Dress<span>(2)</span></a>
-                                </li>
-                                <li>
-                                    <label class="cheker">
-                                        <input type="checkbox" name="properties">
-                                        <span></span>
-                                    </label>
-                                    <a href="#"> Short Sleeve<span>(4)</span></a>
-                                </li>
-                            </ul>
-                        </div>	
-                        <!-- SINGLE SIDEBAR PROPERTIES END -->
                     </div>
                     <!-- PRODUCT-LEFT-SIDEBAR END -->
                     <!-- SINGLE SIDEBAR TAG START -->
@@ -308,7 +143,7 @@
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                             <div class="single-product-item">
                                                 <div class="product-image">
-                                                    <a href=""><img src="${imageRootUrl.concat(product.imageUrl)}" alt="product-image"></a>
+                                                    <a href="/product/detail?productId=${product.id}"><img src="${imageRootUrl.concat(product.imageUrl)}" alt="product-image"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,13 +152,13 @@
                                                 <div class="single-product-item">
                                                     <div class="product-info">
                                                         <div class="customar-comments-box">
-                                                            <a href="">${product.name}</a>
+                                                            <a href="/product/detail?productId=${product.id}">${product.name}</a>
                                                         </div>
                                                         <div class="product-datails">
                                                             <p>${product.description}</p>
                                                         </div>
                                                         <div class="price-box">
-                                                            <span class="price">${product.price}</span>
+                                                            <span class="price">${product.price} VND</span>
                                                         </div>
                                                     </div>
                                                     <div class="overlay-content-list">

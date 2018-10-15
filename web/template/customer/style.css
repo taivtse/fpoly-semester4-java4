@@ -643,7 +643,7 @@ input.search-form[placeholder]:-ms-input-placeholder {
 .header-right-callus:before{
     background: #ff4f4f none repeat scroll 0 0;
     color: #fff;
-    content: "ï‚•";
+    content: "";
     display: inline-block;
     font-family: FontAwesome;
     font-size: 20px;
@@ -1723,7 +1723,7 @@ div.client-carousel .owl-item img {
     top:0;
     left:0;
     line-height:23px;
-    content:"ï„";
+    content:"";
     font-family:fontawesome;
 }
 .single-f-widget ul li a:hover{
@@ -4477,6 +4477,7 @@ p.small-title{
     color:#fff;
 }
 .product-more-info-tab{
+    margin-top: 25px;
     margin-bottom:50px;
 }
 .more-info-tab{
@@ -4661,6 +4662,7 @@ a.write-review-btn{
     margin:0 17px 0 0;
 }
 .single-product-right-sidebar ul li a img{
+    width: 82px;
     border: 1px solid #ccc;
 }
 

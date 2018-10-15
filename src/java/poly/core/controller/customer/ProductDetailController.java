@@ -6,6 +6,7 @@
 package poly.core.controller.customer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -13,17 +14,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import poly.core.dao.impl.CategoryDaoImpl;
 import poly.core.dao.impl.ProductDaoImpl;
-import poly.core.persistence.entity.Category;
 import poly.core.persistence.entity.Product;
 
 /**
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductViewCustomerController", urlPatterns = {"/product"})
-public class ProductViewController extends HttpServlet {
+@WebServlet(name = "ProductDetailCustomerController", urlPatterns = {"/product/detail"})
+public class ProductDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,40 +31,40 @@ public class ProductViewController extends HttpServlet {
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Sản phẩm");
         
-        
-        Integer categoryId = null;
-        List<Product> productList = null;
-        
+        Integer productId = null;
         try {
-            if (request.getParameter("categoryId") != null) {
-                categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            if (request.getParameter("productId") == null) {
+                response.sendRedirect("/");
+                return;
             }
+
+            productId = Integer.parseInt(request.getParameter("productId"));
         } catch (Exception e) {
             request.getRequestDispatcher("/view/customer/error-404.html").forward(request, response);
         }
 
-        if (categoryId != null) {
-            Category category = new CategoryDaoImpl().getById(categoryId);
-            productList = new ProductDaoImpl().getByProperties("category", category, null, null, null, null);
-            breadcrumb.add(category.getName());
-        } else {
-            productList = new ProductDaoImpl().getAll();
-        }
+//        Get product information
+        Product product = new ProductDaoImpl().getById(productId);
 
+        
+//        Get related product
+        List<Product> relatedProducts = new ProductDaoImpl().getRelated(product);
+
+        breadcrumb.add(product.getName());
         request.setAttribute("breadcrumb", breadcrumb);
-        request.setAttribute("productList", productList);
-        request.getRequestDispatcher("/view/customer/index.jsp").forward(request, response);
+        request.setAttribute("product", product);
+        request.setAttribute("relatedProducts", relatedProducts);
+        request.getRequestDispatcher("/view/customer/product-detail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

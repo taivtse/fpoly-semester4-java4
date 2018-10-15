@@ -205,7 +205,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <!-- PAYMENT-METHOD START -->
                                 <div class="payment-method">
-                                    <img class="img-responsive pull-right" src="img/payment.png" alt="payment-method">
+                                    <img class="img-responsive pull-right" src="${customerTemplateUrl}img/payment.png" alt="payment-method">
                                 </div>
                                 <!-- PAYMENT-METHOD END -->
                             </div>

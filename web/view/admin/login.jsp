@@ -46,7 +46,7 @@
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control" value="${param.username}"
                                                                    placeholder="Username" name="username"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
@@ -54,7 +54,7 @@
 
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="password" class="form-control"
+                                                            <input type="password" class="form-control" value="${param.password}"
                                                                    placeholder="Password" name="password"/>
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>

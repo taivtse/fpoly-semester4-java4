@@ -162,7 +162,6 @@
                     <nav>
                         <ul class="list-inline mega-menu">
                             <li><a href="/">Trang chủ</a></li>
-
                             <%
                                 List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
                                 for (Category root : rootCategory) {%>
@@ -178,7 +177,7 @@
                                             <%
                                                 for (int i = 0; i < childCategory.size() / 2; i ++) {%>
                                             <ul>
-                                                <li><a href=""><%=childCategory.get(i).getName()%></a></li>
+                                                <li><a href="/product?categoryId=<%=childCategory.get(i).getId()%>"><%=childCategory.get(i).getName()%></a></li>
                                             </ul>
                                             <%}%>
                                         </div>
@@ -189,7 +188,7 @@
                                             <%
                                                 for (int i = childCategory.size() / 2; i < childCategory.size(); i ++) {%>
                                             <ul>
-                                                <li><a href=""><%=childCategory.get(i).getName()%></a></li>
+                                                <li><a href="/product?categoryId=<%=childCategory.get(i).getId()%>"><%=childCategory.get(i).getName()%></a></li>
                                             </ul>
                                             <%}%>
                                         </div>
