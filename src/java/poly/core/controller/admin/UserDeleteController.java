@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import poly.core.dao.impl.UserDaoImpl;
+import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
 
 /**
@@ -37,6 +38,18 @@ public class UserDeleteController extends HttpServlet {
         }
 
         try {
+            User currentSessionAdminUser = (User) request.getSession().getAttribute("adminUser");
+            User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
+            
+            if (currentSessionAdminUser.getId() == userId) {
+                request.setAttribute(WebConstant.MESSAGE_ERROR, "Không được tự xoá chính mình");
+                request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
+                return;
+            }else if (currentSessionCustomerUser.getId() == userId) {
+                response.sendRedirect("/logout");
+                return;
+            }
+
             new UserDaoImpl().deleteById(userId);
             response.sendRedirect("/admin/user");
         } catch (Exception e) {

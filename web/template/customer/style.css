@@ -3193,11 +3193,14 @@ form.error-ser-form .error-ser-btn:hover{
 ------------------*/
 .personal-infomation{}
 .personal-info-box{}
-.personal-info-content{} 
+.personal-info-content{
+    padding: 0 25px;
+} 
 .p-info-group{
     overflow:hidden;
 } 
 .personal-info-content .p-info-group{
+    margin-top: 10px;
     margin-bottom:0;
 } 
 .p-info-group label{
@@ -3215,7 +3218,7 @@ form.error-ser-form .error-ser-btn:hover{
     margin-right: 35px;
 }  
 .personal-infomation .primary-form-group input{
-    max-width: 370px;
+    max-width: 100%;
 }
 .birth-day, .birth-month, .birth-year{
     background: rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -412px 0px;

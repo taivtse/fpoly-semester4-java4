@@ -23,7 +23,7 @@ import poly.web.common.WebConstant;
  * @author vothanhtai
  */
 @WebServlet(name = "RegisterCustomerController", urlPatterns = {"/register"})
-public class RegisterController extends HttpServlet {
+public class UserRegisterController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +33,7 @@ public class RegisterController extends HttpServlet {
         breadcrumb.add("Đăng ký tài khoản");
         request.setAttribute("breadcrumb", breadcrumb);
         
-        request.getRequestDispatcher("/view/customer/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/user-register.jsp").forward(request, response);
     }
 
     @Override

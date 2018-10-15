@@ -20,6 +20,7 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
             Criteria cr = session.createCriteria(this.getPersistenceClass());
             Category category = product.getCategory();
             cr.add(Restrictions.eq("category", category));
+            cr.add(Restrictions.ne("id", product.getId()));
             cr.setMaxResults(count);
             list = cr.list();
         } catch (HibernateException ex) {
