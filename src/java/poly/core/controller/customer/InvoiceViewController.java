@@ -19,6 +19,7 @@ import poly.core.dao.impl.InvoiceDaoImpl;
 import poly.core.persistence.entity.Cart;
 import poly.core.persistence.entity.CartDetail;
 import poly.core.persistence.entity.Invoice;
+import poly.core.persistence.entity.User;
 
 /**
  *
@@ -33,6 +34,8 @@ public class InvoiceViewController extends HttpServlet {
         //        Set breadcrumb
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Đơn đặt hàng");
+        
+        User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
         
         List<Invoice> invoiceList = new InvoiceDaoImpl().getAll();
         

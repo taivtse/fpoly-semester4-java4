@@ -5,13 +5,15 @@
  */
 package poly.core.dao;
 
+import java.util.List;
 import poly.core.data.dao.GenericDao;
 import poly.core.persistence.entity.Invoice;
+import poly.core.persistence.entity.User;
 
 /**
  *
  * @author vothanhtai
  */
 public interface InvoiceDao  extends GenericDao<Integer, Invoice>{
-    
+    public List<Invoice> getInvoicesByUser(User user);
 }
