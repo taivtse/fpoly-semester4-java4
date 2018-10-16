@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 <%@page import="poly.core.dao.impl.CartDetailDaoImpl"%>
@@ -78,7 +79,7 @@
             <div class="col-sm-12">
                 <!-- LOGO START -->
                 <div class="logo">
-                    <a href="index.html"><img src="${customerTemplateUrl}img/logo.png" alt="bstore logo"></a>
+                    <a href="/"><img src="${customerTemplateUrl}img/logo.png" alt="bstore logo"></a>
                 </div>
                 <!-- LOGO END -->
                 <!-- HEADER-RIGHT-CALLUS START -->
@@ -89,14 +90,23 @@
                 <!-- HEADER-RIGHT-CALLUS END -->
                 <!-- CATEGORYS-PRODUCT-SEARCH START -->
                 <div class="categorys-product-search">
-                    <form action="#" method="get" class="search-form-cat">
+                    <form action="/product/search" method="get" class="search-form-cat">
                         <div class="search-product form-group">
-                            <select name="catsearch" class="cat-search">
-                                <option value="">Categories</option>
-                                <option value="2">--Women</option>									
+                            <select name="searchCategoryId" class="cat-search">
+                                <option value="-1">Tất cả danh mục</option>
+                                <%
+                                    List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
+                                    for (Category root : rootCategory) {
+                                        List<Category> childCategory = new CategoryDaoImpl().getChildCategory(root);
+                                        for (Category child : childCategory) {
+                                %>
+                                <c:set var="childId" value="<%=child.getId()%>"/>                                
+                                <option value="<%=child.getId()%>" ${param.searchCategoryId eq childId ? "selected" : ""}><%=child.getName()%></option>
+                                <%}
+                                    }%>
                             </select>
-                            <input type="text" class="form-control search-form" name="s" placeholder="Enter your search key ... ">
-                            <button class="search-button" value="Search" name="s" type="submit">
+                            <input type="text" class="form-control search-form" name="searchName" value="${param.searchName}" placeholder="Nhập tên sản phẩm">
+                            <button class="search-button" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>									 
                         </div>
@@ -120,19 +130,16 @@
                             <c:if test="${not empty sessionScope.customerUser}">
                                 <%
                                     User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
-                                    Cart cart = null;
-                                    try {
-                                        cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
-                                    } catch (NullPointerException ex) {
-//                                        catch if customer not have cart
-                                    }
+                                    Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
+                                    List<CartDetail> cartDetailItems = new CartDetailDaoImpl().getCartDetailItems(cart);
                                 %>
-                                <c:set var = "cart" value = "<%=cart%>"/>
+                                <c:set var = "cartDetailItems" value = "<%=cartDetailItems%>"/>
+                                <c:set var = "cartId" value = "<%=cart.getId()%>"/>
 
                                 <span class="ajax-cart-quantity">
                                     <c:choose>
-                                        <c:when test="${not empty cart}">
-                                            <%=cart.getCartDetails().size()%>
+                                        <c:when test="${not empty cartDetailItems}">
+                                            ${fn:length(cartDetailItems)}
                                         </c:when>
                                         <c:otherwise>
                                             0
@@ -141,22 +148,31 @@
                                 </span>
                             </c:if>
                         </a>
-                        <c:if test="${not empty sessionScope.customerUser and not empty cart}">
+                        <c:if test="${not empty sessionScope.customerUser and not empty cartDetailItems}">
                             <div class="shipping-cart-overly">
-                                <c:forEach var="cartDetail" items="${cart.cartDetails}">
+                                <c:forEach var="cartDetail" items="${cartDetailItems}">
                                     <div class="shipping-item">
-                                        <span class="cross-icon"><i class="fa fa-times-circle"></i></span>
+                                        <a href="/user/cart/delete?productId=${cartDetail.product.id}">
+                                            <span class="cross-icon">
+
+                                                <i class="fa fa-times-circle"></i>
+
+                                            </span>
+                                        </a>
                                         <div class="shipping-item-image">
-                                            <a href="#"><img src="${imageRootUrl.concat(cartDetail.product.imageUrl)}" alt="shopping image"></a>
+                                            <a href="/product/detail?productId=${cartDetail.product.id}"><img src="${imageRootUrl.concat(cartDetail.product.imageUrl)}" alt="shopping image"></a>
                                         </div>
                                         <div class="shipping-item-text">
-                                            <span><a href="/product/detail?productId=${cartDetail.product.id}">${cartDetail.product.name}</a></span>
+                                            <span>${cartDetail.productQuantity} 
+                                                <span class="pro-quan-x">x</span> 
+                                                <a href="/product/detail?productId=${cartDetail.product.id}" class="pro-cat">${cartDetail.product.name}</a>
+                                            </span>
                                             <p><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></p>
                                         </div>
                                     </div>
                                 </c:forEach>
                                 <div class="shipping-checkout-btn">
-                                    <a href="${customerCartUrl}">Kiểm tra <i class="fa fa-chevron-right"></i></a>
+                                    <a href="${customerCartUrl}">Kiểm tra giỏ hàng<i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
 
@@ -172,7 +188,7 @@
                         <ul class="list-inline mega-menu">
                             <li><a href="/">Trang chủ</a></li>
                                 <%
-                                    List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
+//                                    Root category above
                                     for (Category root : rootCategory) {%>
                             <li>
                                 <a href=""><%=root.getName()%></a>

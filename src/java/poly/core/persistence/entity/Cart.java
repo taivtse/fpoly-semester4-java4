@@ -22,6 +22,11 @@ public class Cart  implements java.io.Serializable {
     public Cart() {
     }
 
+    public Cart(User user, Date createdDate) {
+        this.user = user;
+        this.createdDate = createdDate;
+        this.status = 0;
+    }
 	
     public Cart(int id, User user, Date createdDate) {
         this.id = id;

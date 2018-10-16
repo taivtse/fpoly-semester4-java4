@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="single-product-add-cart">
-                                        <a class="add-cart-text" title="Add to cart" href="#">Thêm vào giỏ hàng</a>
+                                        <a class="add-cart-text" title="Add to cart" href="${customerCartInsertFormUrl}?productId=${product.id}">Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
                             </div>

@@ -52,7 +52,7 @@ public class UserViewController extends HttpServlet {
 //            Add item to breadcrumb
             breadcrumb.add(role.getName());
             
-            userList = new UserDaoImpl().getByProperties("role", role, null, null, null, null);
+            userList = new UserDaoImpl().getByRole(role);
         } else {
             userList = new UserDaoImpl().getAll();
         }

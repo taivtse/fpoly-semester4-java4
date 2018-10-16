@@ -158,12 +158,12 @@
                                                             <p>${product.description}</p>
                                                         </div>
                                                         <div class="price-box">
-                                                            <span class="price">${product.price} VND</span>
+                                                            <span class="price"><fmt:formatNumber value = "${product.price}" type = "currency"/></span>
                                                         </div>
                                                     </div>
                                                     <div class="overlay-content-list">
                                                         <ul>
-                                                            <li><a href="#" class="add-cart-text">Thêm vào giỏ hàng</a></li>
+                                                            <li><a href="${customerCartInsertFormUrl}?productId=${product.id}" class="add-cart-text">Thêm vào giỏ hàng</a></li>
                                                         </ul>
                                                     </div>												
                                                 </div>														

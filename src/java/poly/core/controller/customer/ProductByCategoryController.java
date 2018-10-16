@@ -17,13 +17,14 @@ import poly.core.dao.impl.CategoryDaoImpl;
 import poly.core.dao.impl.ProductDaoImpl;
 import poly.core.persistence.entity.Category;
 import poly.core.persistence.entity.Product;
+import poly.web.common.WebConstant;
 
 /**
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductViewCustomerController", urlPatterns = {"/product"})
-public class ProductViewController extends HttpServlet {
+@WebServlet(name = "ProductByCategoryCustomerController", urlPatterns = {"/product"})
+public class ProductByCategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +32,6 @@ public class ProductViewController extends HttpServlet {
 //        Set breadcrumb
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Sản phẩm");
-        
         
         Integer categoryId = null;
         List<Product> productList = null;
@@ -41,12 +41,14 @@ public class ProductViewController extends HttpServlet {
                 categoryId = Integer.parseInt(request.getParameter("categoryId"));
             }
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/customer/error-404.html").forward(request, response);
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Danh mục không hợp lệ");
+            request.getRequestDispatcher("/view/customer/error.jsp").forward(request, response);
+            return;
         }
 
         if (categoryId != null) {
             Category category = new CategoryDaoImpl().getById(categoryId);
-            productList = new ProductDaoImpl().getByProperties("category", category, null, null, null, null);
+            productList = new ProductDaoImpl().getByCategory(category);
             breadcrumb.add(category.getName());
         } else {
             productList = new ProductDaoImpl().getAll();

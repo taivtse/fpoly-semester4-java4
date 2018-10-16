@@ -3,6 +3,7 @@ package poly.core.data.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +18,7 @@ import java.util.List;
 public interface GenericDao <ID extends Serializable, T>{
     List<T> getAll();
     T getById(ID id);
-    public List<T> getByProperties(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit);
+    public List<T> getByProperties(Map<String, Object> conditions, String sortExpression, String sortDirection, Integer offset, Integer limit);
     boolean insert(T entity);
     boolean update(T entity);
     boolean delete(T entity);

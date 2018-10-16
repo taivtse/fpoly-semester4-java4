@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poly.core.controller.admin;
+package poly.core.controller.customer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -23,8 +24,8 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "ProductViewAdminController", urlPatterns = {"/admin/product"})
-public class ProductViewController extends HttpServlet {
+@WebServlet(name = "ProductFindByNameAndCategoryCustomerController", urlPatterns = {"/product/search"})
+public class ProductFindByNameAndCategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,35 +33,34 @@ public class ProductViewController extends HttpServlet {
         //        Set breadcrumb
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Sản phẩm");
+        breadcrumb.add("Tìm kiếm");
 
-        
-        Integer categoryId = null;
+        Integer searchCategoryId = null;
+        String searchName = null;
         List<Product> productList = null;
-        
+
         try {
-            if (request.getParameter("categoryId") != null) {
-                categoryId = Integer.parseInt(request.getParameter("categoryId"));
-            }
+            searchCategoryId = Integer.parseInt(request.getParameter("searchCategoryId"));
+            searchName = request.getParameter("searchName");
         } catch (Exception e) {
-            request.setAttribute(WebConstant.MESSAGE_ERROR, "Mã danh mục không hợp lệ");
-            request.getRequestDispatcher("/view/admin/error.jsp").forward(request, response);
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Danh mục không hợp lệ");
+            request.getRequestDispatcher("/view/customer/error.jsp").forward(request, response);
             return;
         }
 
-        if (categoryId != null) {
-            Category category = new CategoryDaoImpl().getById(categoryId);
-            
-//            Add item to breadcrumb
-            breadcrumb.add(category.getName());
-            
-            productList = new ProductDaoImpl().getByCategory(category);
+        Category category;
+
+//            get by categoryid
+        if (searchCategoryId != -1) {
+            category = new CategoryDaoImpl().getById(searchCategoryId);
+            productList = new ProductDaoImpl().getBySearchNameAndCategory(searchName, category);
         } else {
-            productList = new ProductDaoImpl().getAll();
+            productList = new ProductDaoImpl().getBySearchName(searchName);
         }
 
         request.setAttribute("breadcrumb", breadcrumb);
         request.setAttribute("productList", productList);
-        request.getRequestDispatcher("/view/admin/product-view.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/index.jsp").forward(request, response);
     }
 
     @Override

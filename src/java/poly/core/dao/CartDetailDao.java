@@ -9,11 +9,13 @@ import java.util.List;
 import poly.core.data.dao.GenericDao;
 import poly.core.persistence.entity.Cart;
 import poly.core.persistence.entity.CartDetail;
+import poly.core.persistence.entity.Product;
 
 /**
  *
  * @author vothanhtai
  */
 public interface CartDetailDao extends GenericDao<Integer, CartDetail>{
-    public List<CartDetail> getCartItems(Cart cart);
+    public List<CartDetail> getCartDetailItems(Cart cart);
+    public CartDetail getByCartAndProduct(Cart cart, Product product);
 }

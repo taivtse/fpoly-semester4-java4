@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "LogoutCustomerController", urlPatterns = {"/user/logout"})
+@WebServlet(name = "LogoutCustomerController", urlPatterns = {"/customer/logout"})
 public class LogoutController extends HttpServlet {
 
 

@@ -22,7 +22,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "RegisterCustomerController", urlPatterns = {"/user/register"})
+@WebServlet(name = "RegisterCustomerController", urlPatterns = {"/customer/register"})
 public class UserRegisterController extends HttpServlet {
 
     @Override

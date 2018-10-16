@@ -21,7 +21,7 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "UserUpdateCustomerController", urlPatterns = {"/user/update"})
+@WebServlet(name = "UserUpdateCustomerController", urlPatterns = {"/customer/update"})
 public class UserUpdateController extends HttpServlet {
 
     @Override
@@ -77,11 +77,6 @@ public class UserUpdateController extends HttpServlet {
         request.getRequestDispatcher("/view/customer/user-update.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

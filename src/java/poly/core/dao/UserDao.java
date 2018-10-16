@@ -5,7 +5,9 @@
  */
 package poly.core.dao;
 
+import java.util.List;
 import poly.core.data.dao.GenericDao;
+import poly.core.persistence.entity.Role;
 import poly.core.persistence.entity.User;
 
 /**
@@ -15,4 +17,5 @@ import poly.core.persistence.entity.User;
 public interface UserDao  extends GenericDao<Integer, User>{
     public User getUserByUsernameAndPassword(String username, String password);
     public User getUserByUsername(String username);
+    public List<User> getByRole(Role role);
 }

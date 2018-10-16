@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "UserCartCustomerController", urlPatterns = {"/user/cart"})
-public class CartController extends HttpServlet {
+@WebServlet(name = "UserCartCustomerController", urlPatterns = {"/customer/cart"})
+public class CartViewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

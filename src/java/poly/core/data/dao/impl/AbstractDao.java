@@ -2,7 +2,9 @@ package poly.core.data.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,42 +15,43 @@ import poly.core.common.CoreConstant;
 import poly.core.data.dao.GenericDao;
 import poly.core.util.HibernateUtil;
 
-public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T>{
+public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T> {
+
     private Class<T> persistenceClass;
-    
+
     public AbstractDao() {
         // generic < x , y > as array
         // set persistenceClass = T
-        this.persistenceClass = (Class<T>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
-    
-    public Class getPersistenceClass(){
+
+    public Class getPersistenceClass() {
         return this.persistenceClass;
     }
-    
-    public String getPersistenceClassName(){
+
+    public String getPersistenceClassName() {
         return this.persistenceClass.getSimpleName();
     }
 
-    protected Session getSession(){
+    protected Session getSession() {
         return HibernateUtil.getSessionFactory().openSession();
     }
-    
+
     @Override
     public List<T> getAll() {
         List<T> list = null;
         Session session = this.getSession();
         try {
             list = session.createCriteria(this.getPersistenceClass()).list();
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
 
         return list;
     }
-    
+
     @Override
     public T getById(ID id) {
         T result = null;
@@ -56,42 +59,45 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         try {
             // note: the first parameter is class type, so we pass persistenceClass at this situation
             result = (T) session.get(this.getPersistenceClass(), id);
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             throw ex;
-        }finally{
+        } finally {
             session.close();
         }
         return result;
     }
-    
+
     @Override
-    public List<T> getByProperties(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    public List<T> getByProperties(Map<String, Object> conditions, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         List<T> list;
         Session session = this.getSession();
         try {
             Criteria cr = session.createCriteria(this.getPersistenceClass());
-            if (property != null && value != null) {
-                cr.add(Restrictions.eq(property, value));
+            if (conditions != null) {
+                for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                    cr.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+                }
             }
-            if (sortExpression != null && sortDirection != null){
-                Order order = sortDirection.equalsIgnoreCase(CoreConstant.SORT_ASC) ?
-                        Order.asc(sortExpression) : Order.desc(sortExpression);
+
+            if (sortExpression != null && sortDirection != null) {
+                Order order = sortDirection.equalsIgnoreCase(CoreConstant.SORT_ASC)
+                        ? Order.asc(sortExpression) : Order.desc(sortExpression);
                 cr.addOrder(order);
             }
 
 //            set start position offset
-            if (offset != null && offset >= 0){
+            if (offset != null && offset >= 0) {
                 cr.setFirstResult(offset);
             }
 //            set limit row
-            if (limit != null && limit > 0){
+            if (limit != null && limit > 0) {
                 cr.setMaxResults(limit);
             }
 
             list = cr.list();
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             throw ex;
-        }finally{
+        } finally {
             session.close();
         }
         return list;
@@ -105,10 +111,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.persist(entity);
             transaction.commit();
             return true;
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -121,10 +127,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.update(entity);
             transaction.commit();
             return true;
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -138,14 +144,14 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.delete(mappedEntity);
             transaction.commit();
             return true;
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
     }
-    
+
     @Override
     public boolean deleteById(ID id) {
         Session session = this.getSession();
@@ -156,10 +162,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.delete(mappedEntity);
             transaction.commit();
             return true;
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -175,10 +181,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
                 countDeleted++;
             }
             transaction.commit();
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
         return countDeleted;
@@ -192,10 +198,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.saveOrUpdate(entity);
             transaction.commit();
             return true;
-        }catch (HibernateException ex){
+        } catch (HibernateException ex) {
             transaction.rollback();
             throw ex;
-        }finally {
+        } finally {
             session.close();
         }
     }

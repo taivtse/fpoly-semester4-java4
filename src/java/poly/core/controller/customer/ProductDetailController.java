@@ -40,11 +40,11 @@ public class ProductDetailController extends HttpServlet {
             productId = Integer.parseInt(request.getParameter("productId"));
         } catch (Exception e) {
             request.getRequestDispatcher("/view/customer/error-404.html").forward(request, response);
+            return;
         }
 
 //        Get product information
         Product product = new ProductDaoImpl().getById(productId);
-
         
 //        Get related product
         List<Product> relatedProducts = new ProductDaoImpl().getRelated(product);
