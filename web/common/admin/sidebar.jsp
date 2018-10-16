@@ -50,8 +50,8 @@
 
             <b class="arrow"></b>
         </li>
-
-        <li class="">
+        <c:set var = "servletUrl" value = "${requestScope['javax.servlet.forward.request_uri']}"/>
+        <li class="${servletUrl eq '/admin/product' ? "open active" : ""}">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list-alt" aria-hidden="true"></i>
                 <span class="menu-text">
@@ -64,7 +64,7 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-                <li class="">
+                <li class="${servletUrl eq "/admin/product" and empty param.categoryId ? "active" : ""}">
                     <a href="/admin/product">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Tất cả sản phẩm
@@ -74,8 +74,17 @@
                 </li>
                 <%
                     List<Category> rootCategory = new CategoryDaoImpl().getRootCategory();
-                    for (Category root : rootCategory) {%>
-                <li class="">
+                    for (Category root : rootCategory) {
+                        List<Category> childCategory = new CategoryDaoImpl().getChildCategory(root);
+                %>
+                <c:set var = "childCategory" value = "<%=childCategory%>"/>
+                <c:set var = "isExist" value = "${false}"/>
+                <c:forEach var = "child" items="${childCategory}">
+                    <c:if test = "${child.id eq param.categoryId}">
+                        <c:set var = "isExist" value = "${true}"/>
+                    </c:if>
+                </c:forEach>
+                <li class="${servletUrl eq "/admin/product" and isExist ? "open" : ""}">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-caret-right"></i>
                         <%=root.getName()%>
@@ -84,11 +93,11 @@
 
                     <b class="arrow"></b>
 
-                    <ul class="submenu">
+                    <ul class="submenu ${servletUrl eq "/admin/product" and isExist ? "nav-show\" style=\"display:block;\"" : ""}">
                         <%
-                            List<Category> childCategory = new CategoryDaoImpl().getChildCategory(root);
                             for (Category child : childCategory) {%>
-                        <li class="">
+                            <c:set var = "id" value = "<%=child.getId()%>"/>
+                        <li class="${servletUrl eq "/admin/product" and param.categoryId eq id ? "active" : ""}">
                             <a href="/admin/product?categoryId=<%=child.getId()%>">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 <%=child.getName()%>
@@ -102,7 +111,7 @@
             </ul>
         </li>
 
-        <li class="">
+        <li class="${servletUrl eq '/admin/user' ? "open active" : ""}">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text">
@@ -115,7 +124,7 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-                <li class="">
+                <li class="${servletUrl eq "/admin/user" and empty param.roleId ? "active" : ""}">
                     <a href="/admin/user">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Tất cả người dùng
@@ -127,7 +136,7 @@
                     List<Role> roles = new RoleDaoImpl().getAll();
                 %>
                 <c:forEach var="role" items="<%=roles%>">
-                    <li class="">
+                    <li class="${servletUrl eq "/admin/user" and param.roleId eq role.id ? "active" : ""}">
                         <a href="/admin/user?roleId=${role.id}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             ${role.name}
@@ -137,7 +146,7 @@
                 </c:forEach>  
             </ul>
         </li>
-        <li class="">
+        <li class="${servletUrl eq "/admin/invoice" ? "active" : ""}">
             <a href="/admin/invoice">
                 <i class="menu-icon fa fa-money"></i>
                 <span class="menu-text">Quản lý đơn đặt hàng</span>
