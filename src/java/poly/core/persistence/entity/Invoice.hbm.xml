@@ -11,6 +11,9 @@
         <many-to-one name="cart" class="poly.core.persistence.entity.Cart" fetch="join">
             <column name="cart_id" not-null="true" />
         </many-to-one>
+        <many-to-one name="user" class="poly.core.persistence.entity.User" fetch="join">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
         <property name="createdDate" type="date">
             <column name="created_date" length="10" not-null="true" />
         </property>

@@ -31,20 +31,25 @@ public class InvoiceViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //        Set breadcrumb
+        User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
+
+        if (currentSessionCustomerUser == null) {
+            request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);
+            return;
+        }
+
+//        Set breadcrumb
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Đơn đặt hàng");
-        
-        User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
-        
-        List<Invoice> invoiceList = new InvoiceDaoImpl().getAll();
-        
+
+        List<Invoice> invoiceList = new InvoiceDaoImpl().getInvoicesByUser(currentSessionCustomerUser);
+
         for (Invoice invoice : invoiceList) {
             Cart cart = invoice.getCart();
             List<CartDetail> cartDetails = new CartDetailDaoImpl().getCartDetailItems(cart);
             cart.setCartDetails(new HashSet<>(cartDetails));
         }
-        
+
         request.setAttribute("invoiceList", invoiceList);
         request.setAttribute("breadcrumb", breadcrumb);
         request.getRequestDispatcher("/view/customer/user-invoice.jsp").forward(request, response);
@@ -53,7 +58,7 @@ public class InvoiceViewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     @Override

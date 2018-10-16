@@ -35,5 +35,11 @@
             </key>
             <one-to-many class="poly.core.persistence.entity.Cart" />
         </set>
+        <set name="invoices" table="invoice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="poly.core.persistence.entity.Invoice" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -20,6 +20,7 @@ public class User  implements java.io.Serializable {
      private String phone;
      private String address;
      private Set<Cart> carts = new HashSet<Cart>(0);
+     private Set<Cart> invoices = new HashSet<Cart>(0);
 
     public User() {
     }
@@ -35,7 +36,7 @@ public class User  implements java.io.Serializable {
         this.phone = phone;
         this.address = address;
     }
-    public User(int id, Role role, String username, String password, String fullname, String email, String phone, String address, Set<Cart> carts) {
+    public User(int id, Role role, String username, String password, String fullname, String email, String phone, String address, Set<Cart> carts, Set<Cart> invoices) {
        this.id = id;
        this.role = role;
        this.username = username;
@@ -45,6 +46,7 @@ public class User  implements java.io.Serializable {
        this.phone = phone;
        this.address = address;
        this.carts = carts;
+       this.invoices = invoices;
     }
    
     public int getId() {
@@ -109,6 +111,14 @@ public class User  implements java.io.Serializable {
     
     public void setCarts(Set<Cart> carts) {
         this.carts = carts;
+    }
+
+    public Set<Cart> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Cart> invoices) {
+        this.invoices = invoices;
     }
 
 

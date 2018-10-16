@@ -18,6 +18,7 @@ import poly.core.dao.impl.InvoiceDaoImpl;
 import poly.core.persistence.entity.Cart;
 import poly.core.persistence.entity.CartDetail;
 import poly.core.persistence.entity.Invoice;
+import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
 
 /**
@@ -30,6 +31,13 @@ public class InvoiceDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
+
+        if (currentSessionCustomerUser == null) {
+            request.getRequestDispatcher("/view/customer/login.jsp").forward(request, response);
+            return;
+        }
+        
         //        Set breadcrumb
         List<String> breadcrumb = new ArrayList<>();
         breadcrumb.add("Chi tiết đơn đặt hàng");

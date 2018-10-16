@@ -12,14 +12,16 @@ public class Invoice  implements java.io.Serializable {
 
      private int id;
      private Cart cart;
+     private User user;
      private Date createdDate;
      private int status;
 
     public Invoice() {
     }
 
-    public Invoice(Cart cart) {
+    public Invoice(Cart cart, User user) {
         this.cart = cart;
+        this.user = user;
         this.createdDate = new Date();
         this.status = 0;
     }
@@ -50,6 +52,16 @@ public class Invoice  implements java.io.Serializable {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
     public Date getCreatedDate() {
         return this.createdDate;
     }

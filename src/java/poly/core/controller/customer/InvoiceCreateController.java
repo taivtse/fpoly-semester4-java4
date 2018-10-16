@@ -54,7 +54,7 @@ public class InvoiceCreateController extends HttpServlet {
         try {
             new CartDaoImpl().update(cart);
             
-            Invoice invoice = new Invoice(cart);
+            Invoice invoice = new Invoice(cart, currentSessionCustomerUser);
             new InvoiceDaoImpl().insert(invoice);
             response.sendRedirect("/customer/invoice");
         } catch (Exception e) {

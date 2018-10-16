@@ -3097,8 +3097,12 @@ form.error-ser-form .error-ser-btn:hover{
     font-size: 13px;
     margin: 14px 0 13px;
 } 
+.form-content{
+    padding: 0 25px;
+}
 .primary-form-group{
     margin-bottom: 1px;
+    margin-top: 10px;
     overflow:hidden;
 } 
 .primary-form-group label{
@@ -3879,7 +3883,7 @@ div.create-new-account .form-content p{
     margin:10px 0 4px;
 }
 div.registered-account .primary-form-group input{
-    max-width:271px;
+    max-width:100%;
 }
 /*----------------------------------------
 22. checkout-address
