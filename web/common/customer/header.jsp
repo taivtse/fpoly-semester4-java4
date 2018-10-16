@@ -127,32 +127,40 @@
                         <a class="shop-link" href="${customerCartUrl}">
                             <i class="fa fa-shopping-cart cart-icon"></i>
                             <b>Giỏ hàng</b>
-                            <c:if test="${not empty sessionScope.customerUser}">
+                            <%
+                                User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
+                                Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
+                            %>
+                            <c:set var = "cart" value = "<%=cart%>"/>
+
+                            <c:if test="${not empty sessionScope.customerUser and not empty cart}">
                                 <%
-                                    User currentSessionCustomerUser = (User) request.getSession().getAttribute("customerUser");
-                                    Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
-                                    List<CartDetail> cartDetailItems = new CartDetailDaoImpl().getCartDetailItems(cart);
+                                List<CartDetail> cartDetailItems = null;
+                                if(cart != null){
+                                    cartDetailItems = new CartDetailDaoImpl().getCartDetailItems(cart);
+                                }
                                 %>
+
                                 <c:set var = "cartDetailItems" value = "<%=cartDetailItems%>"/>
                                 <c:set var = "cartId" value = "<%=cart.getId()%>"/>
-
-                                <span class="ajax-cart-quantity">
-                                    <c:choose>
-                                        <c:when test="${not empty cartDetailItems}">
-                                            ${fn:length(cartDetailItems)}
-                                        </c:when>
-                                        <c:otherwise>
-                                            0
-                                        </c:otherwise>
-                                    </c:choose>
-                                </span>
                             </c:if>
+
+                            <span class="ajax-cart-quantity">
+                                <c:choose>
+                                    <c:when test="${not empty cart}">
+                                        ${fn:length(cartDetailItems)}
+                                    </c:when>
+                                    <c:otherwise>
+                                        0
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
                         </a>
                         <c:if test="${not empty sessionScope.customerUser and not empty cartDetailItems}">
                             <div class="shipping-cart-overly">
                                 <c:forEach var="cartDetail" items="${cartDetailItems}">
                                     <div class="shipping-item">
-                                        <a href="/user/cart/delete?productId=${cartDetail.product.id}">
+                                        <a href="/customer/cart/delete?productId=${cartDetail.product.id}">
                                             <span class="cross-icon">
 
                                                 <i class="fa fa-times-circle"></i>

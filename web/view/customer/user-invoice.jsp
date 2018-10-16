@@ -124,7 +124,7 @@
                         <div class="returne-continue-shop">
                             <a href="/" class="continueshoping"><i class="fa fa-chevron-left"></i>Tiếp tục mua hàng</a>
                             <c:if test="${not empty cartDetailItems}">
-                                <a href="/customer/invoice/create?cartId=${cartId}" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
+                                <a href="checkout-signin.html" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
                                 </c:if>
                         </div>	
                         <!-- RETURNE-CONTINUE-SHOP END -->				

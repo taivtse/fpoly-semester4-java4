@@ -12,11 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import poly.core.dao.impl.CartDaoImpl;
-import poly.core.dao.impl.CartDetailDaoImpl;
-import poly.core.dao.impl.ProductDaoImpl;
-import poly.core.persistence.entity.Cart;
-import poly.core.persistence.entity.CartDetail;
-import poly.core.persistence.entity.Product;
 import poly.core.persistence.entity.User;
 import poly.web.common.WebConstant;
 
@@ -24,8 +19,8 @@ import poly.web.common.WebConstant;
  *
  * @author vothanhtai
  */
-@WebServlet(name = "CartDeleteCustomerController", urlPatterns = {"/customer/cart/delete"})
-public class CartDeleteController extends HttpServlet {
+@WebServlet(name = "CartDropCustomerController", urlPatterns = {"/customer/cart/drop"})
+public class CartDropController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,33 +32,24 @@ public class CartDeleteController extends HttpServlet {
             return;
         }
 
-        Integer productId;
+        Integer cartId;
         try {
-            if (request.getParameter("productId") == null) {
+            if (request.getParameter("cartId") == null) {
                 response.sendRedirect("/");
                 return;
             }
-            productId = Integer.parseInt(request.getParameter("productId"));
+            cartId = Integer.parseInt(request.getParameter("cartId"));
         } catch (Exception e) {
-            request.setAttribute(WebConstant.MESSAGE_ERROR, "Mã sản phẩm không hợp lệ");
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Mã giỏ hàng không hợp lệ");
             request.getRequestDispatcher("/view/customer/error.jsp").forward(request, response);
             return;
         }
 
-        Cart cart = new CartDaoImpl().getCurrentCartByUser(currentSessionCustomerUser);
-        
-        
-//        Get product
-        Product product = new ProductDaoImpl().getById(productId);
-
-//        Get cart detail of product in cart
-        CartDetail cartDetail = new CartDetailDaoImpl().getByCartAndProduct(cart, product);
-
         try {
-            new CartDetailDaoImpl().delete(cartDetail);
+            new CartDaoImpl().deleteById(cartId);
             response.sendRedirect(request.getHeader("referer"));
         } catch (Exception e) {
-            request.setAttribute(WebConstant.MESSAGE_ERROR, "Xoá sản phẩm trong giỏ hàng thất bại");
+            request.setAttribute(WebConstant.MESSAGE_ERROR, "Xoá giỏ hàng thất bại");
             request.getRequestDispatcher("/view/customer/error.jsp").forward(request, response);
         }
     }
@@ -71,7 +57,7 @@ public class CartDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     @Override

@@ -18,6 +18,11 @@ public class Invoice  implements java.io.Serializable {
     public Invoice() {
     }
 
+    public Invoice(Cart cart) {
+        this.cart = cart;
+        this.createdDate = new Date();
+        this.status = 0;
+    }
 	
     public Invoice(int id, Cart cart, Date createdDate) {
         this.id = id;
