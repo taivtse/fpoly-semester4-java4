@@ -138,11 +138,10 @@
             </ul>
         </li>
         <li class="">
-            <a href="widgets.html">
+            <a href="/admin/invoice">
                 <i class="menu-icon fa fa-money"></i>
                 <span class="menu-text">Quản lý đơn đặt hàng</span>
             </a>
-
             <b class="arrow"></b>
         </li>
     </ul><!-- /.nav-list -->
