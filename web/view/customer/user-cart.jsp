@@ -60,6 +60,7 @@
                                         <!-- TABLE HEADER END -->
                                         <!-- TABLE BODY START -->
                                         <tbody>	
+                                            <c:set var="cartTotal" value="${0}"/>
                                             <c:forEach var="cartDetail" items="${cartDetailItems}">
                                                 <!-- SINGLE CART_ITEM START -->
                                                 <tr>
@@ -74,7 +75,7 @@
                                                         </p>
                                                     </td>
                                                     <td class="cart-avail"><span class="label label-success">${cartDetail.product.quantity} sản phẩm</span></td>
-                                                    <td class="cart-unit">
+                                                    <td class="cart_quantity">
                                                         <ul class="price text-right">
                                                             <li class="price"><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></li>
                                                         </ul>
@@ -82,15 +83,17 @@
                                                     <td class="cart_quantity text-center">
                                                         <div class="cart-plus-minus-button">
                                                             <input class="cart-plus-minus" type="text" name="qtybutton" value="${cartDetail.productQuantity}">
-                                                            </td>
-                                                            <td class="cart-delete text-center">
-                                                                <span>
-                                                                    <a href="/customer/cart/delete?productId=${cartDetail.product.id}" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-                                                                </span>
-                                                            </td>
-                                                            <td class="cart-total">
-                                                                <span class="price"><fmt:formatNumber value = "${cartDetail.product.price * cartDetail.productQuantity}" type = "currency"/></span>
-                                                            </td>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart-delete text-center">
+                                                        <span>
+                                                            <a href="/customer/cart/delete?productId=${cartDetail.product.id}" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                                        </span>
+                                                    </td>
+                                                    <td class="cart-total">
+                                                        <span class="price"><fmt:formatNumber value = "${cartDetail.product.price * cartDetail.productQuantity}" type = "currency"/></span>
+                                                    </td>
+                                                    <c:set var="cartTotal" value="${cartTotal + (cartDetail.product.price * cartDetail.productQuantity)}" />
                                                 </tr>
                                                 <!-- SINGLE CART_ITEM END -->
                                             </c:forEach>
@@ -100,10 +103,10 @@
                                         <tfoot>
                                             <tr>
                                                 <td class="cart_voucher" colspan="3" rowspan="4"></td><td class="total-price-container text-right" colspan="3">
-                                                    <span>Total</span>
+                                                    <span>Tổng cộng</span>
                                                 </td>
                                                 <td id="total-price-container" class="price" colspan="1">
-                                                    <span id="total-price">9798</span>
+                                                    <span id="total-price"><fmt:formatNumber value = "${cartTotal}" type = "currency"/></span>
                                                 </td>
                                             </tr>
                                         </tfoot>		

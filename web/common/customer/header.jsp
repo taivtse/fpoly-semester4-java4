@@ -62,6 +62,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li><a href="${customerUpdateInfoFormUrl}">${sessionScope.customerUser.fullname}</a></li>
+                                    <li><a href="/customer/invoice">Đơn đặt hàng</a></li>
                                     <li><a href="${customerLogoutFormUrl}">Đăng xuất</a></li>
                                 </c:otherwise>
                             </c:choose>

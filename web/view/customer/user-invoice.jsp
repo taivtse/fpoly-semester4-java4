@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Giỏ hàng</title>
+        <title>Đơn đặt hàng</title>
         <%@include file="/common/customer/top-embed.jsp" %>
     </head>
     <body>
@@ -20,27 +20,13 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- SHOPPING-CART SUMMARY START -->
-                        <h2 class="page-title">Thông tin giỏ hàng 
-                            <c:if test="${not empty cartDetailItems}">
-                                <span class="shop-pro-item">Mã giỏ hàng: #${cartId}</span>
-                            </c:if>
+                        <h2 class="page-title">Thông tin đơn đặt hàng
                             <!-- SHOPPING-CART SUMMARY END -->
                     </div>	
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <c:choose>
-                            <c:when test="${not empty cartDetailItems}">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="returne-continue-shop">
-                                            <a href="/customer/cart/drop?cartId=${cartId}" class="procedtocheckout" style="padding: 0 10px;
-                                               font-size: 14px;
-                                               height: 35px;
-                                               align-items: center;
-                                               display: inline-flex;">Xoá toàn bộ giỏ hàng<i class="fa fa-times-circle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <c:when test="${not empty invoiceList}">
                                 <!-- CART TABLE_BLOCK START -->
                                 <div class="table-responsive">
                                     <!-- TABLE START -->
@@ -48,73 +34,64 @@
                                         <!-- TABLE HEADER START -->
                                         <thead>
                                             <tr>
-                                                <th class="cart-product text-center">Hình ảnh</th>
-                                                <th class="cart-description text-center">Tên sản phẩm</th>
-                                                <th class="cart-avail text-center">Số lượng trong kho</th>
-                                                <th class="cart-unit text-center">Giá tiền</th>
-                                                <th class="cart_quantity text-center">Số lượng mua</th>
-                                                <th class="cart-delete text-center">Xoá</th>
-                                                <th class="cart-total text-center">Tổng cộng</th>
+                                                <th class="cart-product text-center" style="width: 16%">Mã đơn đặt hàng</th>
+                                                <th class="cart-description text-center">Ngày tạo</th>
+                                                <th class="cart-avail text-center" style="width: 16%">Trạng thái</th>
+                                                <th class="cart-avail text-center" style="width: 16%">Tổng số mặt hàng</th>
+                                                <th class="cart-avail text-center" style="width: 16%">Tổng số sản phẩm</th>
+                                                <th class="cart-total text-center" style="width: 16%">Tống cộng</th>
                                             </tr>
                                         </thead>
                                         <!-- TABLE HEADER END -->
                                         <!-- TABLE BODY START -->
                                         <tbody>	
-                                            <c:forEach var="cartDetail" items="${cartDetailItems}">
+                                            <c:forEach var="invoice" items="${invoiceList}">
                                                 <!-- SINGLE CART_ITEM START -->
                                                 <tr>
                                                     <td class="cart-product">
-                                                        <a href="/product/detail?productId=${cartDetail.product.id}">
-                                                            <img src="${imageRootUrl.concat(cartDetail.product.imageUrl)}">
-                                                        </a>
+                                                        <a href="/customer/invoice/detail?invoiceId=${invoice.id}">#${invoice.id}</a>
                                                     </td>
                                                     <td class="cart-description">
                                                         <p class="product-name">
-                                                            <a href="/product/detail?productId=${cartDetail.product.id}">${cartDetail.product.name}</a>
+                                                            <a href="/customer/invoice/detail?invoiceId=${invoice.id}"><fmt:formatDate pattern="dd-MM-yyyy" value = "${invoice.createdDate}" /></a>
                                                         </p>
                                                     </td>
-                                                    <td class="cart-avail"><span class="label label-success">${cartDetail.product.quantity} sản phẩm</span></td>
-                                                    <td class="cart-unit">
+                                                    <td class="cart-avail">
+                                                        <span class="label label-success">${invoice.status eq 0 ? "Đang xử lý" : "Đã thanh toán"}</span>
+                                                    </td>
+                                                    <td class="cart-avail">
                                                         <ul class="price text-right">
-                                                            <li class="price"><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></li>
+                                                            <li class="price">${fn:length(invoice.cart.cartDetails)}</li>
                                                         </ul>
                                                     </td>
-                                                    <td class="cart_quantity text-center">
-                                                        <div class="cart-plus-minus-button">
-                                                            <input class="cart-plus-minus" type="text" name="qtybutton" value="${cartDetail.productQuantity}">
-                                                            </td>
-                                                            <td class="cart-delete text-center">
-                                                                <span>
-                                                                    <a href="/customer/cart/delete?productId=${cartDetail.product.id}" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-                                                                </span>
-                                                            </td>
-                                                            <td class="cart-total">
-                                                                <span class="price"><fmt:formatNumber value = "${cartDetail.product.price * cartDetail.productQuantity}" type = "currency"/></span>
-                                                            </td>
+                                                    <c:set var="productCountTotal" value="${0}"/>
+                                                    <c:forEach var="item" items="${invoice.cart.cartDetails}">
+                                                        <c:set var="productCountTotal" value="${ productCountTotal + item.productQuantity}" />
+                                                    </c:forEach>
+                                                    <td class="cart-avail">
+                                                        <ul class="price text-right">
+                                                            <li class="price">${productCountTotal}</li>
+                                                        </ul>
+                                                    </td>
+                                                    <c:set var="invoiceTotal" value="${0}"/>
+                                                    <c:forEach var="item" items="${invoice.cart.cartDetails}">
+                                                        <c:set var="invoiceTotal" value="${ invoiceTotal + (item.productQuantity * item.product.price)}" />
+                                                    </c:forEach>
+                                                    <td class="cart-total">
+                                                        <span class="price"><fmt:formatNumber value = "${invoiceTotal}" type = "currency"/></span>
+                                                    </td>
                                                 </tr>
                                                 <!-- SINGLE CART_ITEM END -->
                                             </c:forEach>
                                         </tbody>
-                                        <!-- TABLE BODY END -->
-                                        <!-- TABLE FOOTER START -->
-                                        <tfoot>
-                                            <tr>
-                                                <td class="cart_voucher" colspan="3" rowspan="4"></td><td class="total-price-container text-right" colspan="3">
-                                                    <span>Total</span>
-                                                </td>
-                                                <td id="total-price-container" class="price" colspan="1">
-                                                    <span id="total-price">9798</span>
-                                                </td>
-                                            </tr>
-                                        </tfoot>		
-                                        <!-- TABLE FOOTER END -->									
+                                        <!-- TABLE BODY END -->									
                                     </table>
                                     <!-- TABLE END -->
                                 </div>
                                 <!-- CART TABLE_BLOCK END -->
                             </c:when>
                             <c:otherwise>
-                                <h2 class="text-center">Giỏ hàng của bạn đang rỗng.</h2>
+                                <h2 class="text-center">Bạn chưa có đơn đặt hàng nào.</h2>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -123,9 +100,6 @@
                         <!-- RETURNE-CONTINUE-SHOP START -->
                         <div class="returne-continue-shop">
                             <a href="/" class="continueshoping"><i class="fa fa-chevron-left"></i>Tiếp tục mua hàng</a>
-                            <c:if test="${not empty cartDetailItems}">
-                                <a href="checkout-signin.html" class="procedtocheckout">Đặt hàng<i class="fa fa-chevron-right"></i></a>
-                                </c:if>
                         </div>	
                         <!-- RETURNE-CONTINUE-SHOP END -->				
                     </div>

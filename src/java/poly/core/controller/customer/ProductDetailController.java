@@ -39,7 +39,7 @@ public class ProductDetailController extends HttpServlet {
 
             productId = Integer.parseInt(request.getParameter("productId"));
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/customer/error-404.html").forward(request, response);
+            request.getRequestDispatcher("/view/customer/error.jsp").forward(request, response);
             return;
         }
 

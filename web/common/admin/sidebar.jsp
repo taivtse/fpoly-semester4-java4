@@ -53,7 +53,7 @@
 
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-desktop"></i>
+                <i class="menu-icon fa fa-list-alt" aria-hidden="true"></i>
                 <span class="menu-text">
                     Quản lý sản phẩm
                 </span>
@@ -104,7 +104,7 @@
 
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-desktop"></i>
+                <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text">
                     Quản lý người dùng
                 </span>
@@ -136,6 +136,14 @@
                     </li>
                 </c:forEach>  
             </ul>
+        </li>
+        <li class="">
+            <a href="widgets.html">
+                <i class="menu-icon fa fa-money"></i>
+                <span class="menu-text">Quản lý đơn đặt hàng</span>
+            </a>
+
+            <b class="arrow"></b>
         </li>
     </ul><!-- /.nav-list -->
 
