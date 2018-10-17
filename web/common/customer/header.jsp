@@ -159,13 +159,12 @@
                         </a>
                         <c:if test="${not empty sessionScope.customerUser and not empty cartDetailItems}">
                             <div class="shipping-cart-overly">
+                                <c:set var = "cartTotal" value = "${0}"/>
                                 <c:forEach var="cartDetail" items="${cartDetailItems}">
                                     <div class="shipping-item">
                                         <a href="/customer/cart/delete?productId=${cartDetail.product.id}">
                                             <span class="cross-icon">
-
                                                 <i class="fa fa-times-circle"></i>
-
                                             </span>
                                         </a>
                                         <div class="shipping-item-image">
@@ -179,7 +178,16 @@
                                             <p><fmt:formatNumber value = "${cartDetail.product.price}" type = "currency"/></p>
                                         </div>
                                     </div>
+                                    <c:set var = "cartTotal" value = "${cartTotal + (cartDetail.productQuantity * cartDetail.product.price)}"/>
                                 </c:forEach>
+                                <div class="shipping-total-bill">
+                                    <div class="total-shipping-prices">
+                                        <span class="shipping-total">
+                                            <fmt:formatNumber value = "${cartTotal}" type = "currency"/>
+                                        </span>
+                                        <span>Tổng cộng</span>
+                                    </div>										
+                                </div>
                                 <div class="shipping-checkout-btn">
                                     <a href="${customerCartUrl}">Kiểm tra giỏ hàng<i class="fa fa-chevron-right"></i></a>
                                 </div>
